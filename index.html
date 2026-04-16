@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MartialGuide — Find Your Perfect Martial Art</title>
+    <meta name="description"
+        content="Compare 10 martial arts by difficulty, equipment cost, injury risk and more. Find the perfect discipline for your goals." />
+
+    <style>
+        /* ── Page-level resets & tokens ─────────────────────────── */
+        /* (layout.js injects :root variables; these extend them)   */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ── HERO ───────────────────────────────────────────────── */
+        .hero {
+            min-height: calc(92vh - 64px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 96px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle dot-grid background texture */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, #d4d4d4 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #888;
+            background: #f0f0f0;
+            border: 1px solid #e0e0e0;
+            border-radius: 100px;
+            padding: 5px 14px;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            line-height: 1;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            /* underline accent drawn with a background */
+            background: linear-gradient(0deg, #1a1a1a 2px, transparent 2px);
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            background-size: 100% 6px;
+            padding-bottom: 4px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            color: #555;
+            line-height: 1.65;
+            max-width: 560px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 13px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-dark {
+            background: #1a1a1a;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        }
+
+        .btn-dark:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #1a1a1a;
+            border: 2px solid #1a1a1a;
+        }
+
+        .btn-outline:hover {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        /* Hero scroll hint */
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #aaa;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: bounce 2.4s ease infinite;
+        }
+
+        .hero-scroll-hint svg {
+            opacity: 0.5;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(6px);
+            }
+        }
+
+        /* ── SECTION COMMONS ─────────────────────────────────────── */
+        section {
+            padding: 80px 24px;
+        }
+
+        .section-header {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            letter-spacing: 0.03em;
+            color: #1a1a1a;
+        }
+
+        /* ── FEATURED CARDS ──────────────────────────────────────── */
+        .featured {
+            background: #fafafa;
+        }
+
+        .featured-header {
+            max-width: 1200px;
+            margin: 0 auto 36px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .featured-header a {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .featured-header a:hover {
+            opacity: 1;
+        }
+
+        /* Horizontal scroll track */
+        .cards-track-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            /* Firefox */
+            padding-bottom: 8px;
+        }
+
+        .cards-track-wrap::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cards-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            padding: 4px 2px 12px;
+        }
+
+        /* Art card */
+        .art-card {
+            width: 260px;
+            flex-shrink: 0;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .art-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        }
+
+        .art-card-img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            background: #e8e8e8;
+            display: block;
+            /* Placeholder colour bands when no real image */
+            background: linear-gradient(135deg, #d0d0d0 0%, #e8e8e8 100%);
+        }
+
+        /* Placeholder icon shown when image is missing */
+        .art-card-img-placeholder {
+            width: 100%;
+            height: 170px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #ececec 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            letter-spacing: 0.05em;
+            color: #bbb;
+        }
+
+        .art-card-body {
+            padding: 16px 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .art-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .art-card-name {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+
+        .style-badge {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 100px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .badge-striking {
+            background: #fff3e0;
+            color: #c25c00;
+        }
+
+        .badge-grappling {
+            background: #e8f4fd;
+            color: #0066b3;
+        }
+
+        .badge-weapons {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .badge-mixed {
+            background: #f3e8ff;
+            color: #6d28d9;
+        }
+
+        /* Stat bar */
+        .stat-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: #888;
+            width: 76px;
+            flex-shrink: 0;
+        }
+
+        .stat-bar-track {
+            flex: 1;
+            height: 5px;
+            background: #ebebeb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        .stat-bar-fill.blue {
+            background: #3b82f6;
+        }
+
+        .stat-bar-fill.red {
+            background: #ef4444;
+        }
+
+        .stat-bar-fill.green {
+            background: #22c55e;
+        }
+
+        .stat-value {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #555;
+            width: 22px;
+            text-align: right;
+        }
+
+        /* ── WHY SECTION ─────────────────────────────────────────── */
+        .why {
+            background: #fff;
+        }
+
+        .why-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .why-card {
+            background: #fafafa;
+            border: 1px solid #ebebeb;
+            border-radius: 12px;
+            padding: 32px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+        }
+
+        .why-icon {
+            width: 44px;
+            height: 44px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .why-icon svg {
+            color: #fff;
+        }
+
+        .why-card h3 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .why-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.65;
+        }
+
+        /* ── QUIZ CTA BANNER ─────────────────────────────────────── */
+        .quiz-banner {
+            background: #1a1a1a;
+            padding: 80px 24px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .quiz-banner-inner {
+            max-width: 640px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .quiz-banner h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            letter-spacing: 0.04em;
+            color: #fff;
+        }
+
+        .quiz-banner p {
+            font-size: 1rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: #1a1a1a;
+            box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+            margin-top: 8px;
+        }
+
+        .btn-white:hover {
+            box-shadow: 0 8px 28px rgba(255, 255, 255, 0.2);
+        }
+
+        /* ── RESPONSIVE ──────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .why-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 60px 20px;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR (injected by layout.js) -->
+    <div id="navbar-container"></div>
+
+    <main>
+
+        <!-- ══════════════════════════════════════════════════════
+         1. HERO
+    ══════════════════════════════════════════════════════ -->
+        <section class="hero" aria-label="Hero">
+            <div class="hero-content">
+                <span class="hero-eyebrow">10 martial arts · honest ratings · free guide</span>
+
+                <h1>Find Your<br><em>Perfect</em><br>Martial Art</h1>
+
+                <p class="hero-subtitle">
+                    Compare 10 disciplines — difficulty, equipment cost,
+                    injury risk and more. Built for beginners who want real answers.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="browse.html" class="btn btn-dark">
+                        <!-- grid icon -->
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                            <rect x="14" y="14" width="7" height="7" />
+                        </svg>
+                        Browse All Arts
+                    </a>
+                    <a href="quiz.html" class="btn btn-outline">
+                        <!-- sparkle icon -->
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+                        </svg>
+                        Take the Quiz
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll hint -->
+            <div class="hero-scroll-hint" aria-hidden="true">
+                <span>Scroll</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════
+         2. FEATURED MARTIAL ARTS
+    ══════════════════════════════════════════════════════ -->
+        <section class="featured" aria-labelledby="featured-title">
+            <div class="featured-header">
+                <div>
+                    <p class="section-label">Explore</p>
+                    <h2 class="section-title" id="featured-title">Featured Martial Arts</h2>
+                </div>
+                <a href="browse.html">
+                    View all 10
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="cards-track-wrap">
+                <div class="cards-track" id="featured-cards" role="list">
+                    <!-- JS populates this -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════
+         3. WHY USE THIS GUIDE
+    ══════════════════════════════════════════════════════ -->
+        <section class="why" aria-labelledby="why-title">
+            <div class="section-header">
+                <p class="section-label">Why MartialGuide</p>
+                <h2 class="section-title" id="why-title">Everything You Need to Decide</h2>
+            </div>
+
+            <div class="why-grid">
+
+                <article class="why-card">
+                    <div class="why-icon" aria-hidden="true">
+                        <!-- columns/compare icon -->
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="3" x2="12" y2="21" />
+                            <polyline points="3 8 7 12 3 16" />
+                            <polyline points="21 8 17 12 21 16" />
+                        </svg>
+                    </div>
+                    <h3>Compare Side by Side</h3>
+                    <p>
+                        Put any two martial arts head-to-head. See difficulty,
+                        injury risk, total equipment cost, and more in one clean table.
+                    </p>
+                </article>
+
+                <article class="why-card">
+                    <div class="why-icon" aria-hidden="true">
+                        <!-- target/match icon -->
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <circle cx="12" cy="12" r="5" />
+                            <circle cx="12" cy="12" r="1" fill="white" />
+                        </svg>
+                    </div>
+                    <h3>Find Your Match</h3>
+                    <p>
+                        Answer 5 quick questions about your fitness, goals, and budget.
+                        We'll rank all 10 arts and explain exactly why each one fits.
+                    </p>
+                </article>
+
+                <article class="why-card">
+                    <div class="why-icon" aria-hidden="true">
+                        <!-- bar chart icon -->
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="20" x2="18" y2="10" />
+                            <line x1="12" y1="20" x2="12" y2="4" />
+                            <line x1="6" y1="20" x2="6" y2="14" />
+                            <line x1="2" y1="20" x2="22" y2="20" />
+                        </svg>
+                    </div>
+                    <h3>Honest Ratings</h3>
+                    <p>
+                        No marketing fluff. Every discipline is rated on real metrics —
+                        difficulty, injury risk, and fitness required — so you know what
+                        you're actually signing up for.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════
+         4. QUIZ CTA BANNER
+    ══════════════════════════════════════════════════════ -->
+        <section class="quiz-banner" aria-labelledby="quiz-banner-title">
+            <div class="quiz-banner-inner">
+                <h2 id="quiz-banner-title">Not Sure Where to Start?</h2>
+                <p>
+                    Take our 2-minute quiz and find your ideal martial art based
+                    on your fitness level, goals, and budget.
+                </p>
+                <a href="quiz.html" class="btn btn-white">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+                    </svg>
+                    Start the Quiz
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER (injected by layout.js) -->
+    <div id="footer-container"></div>
+
+    <!-- ── Scripts ──────────────────────────────────────────────── -->
+    <script src="data.js"></script>
+    <script src="layout.js"></script>
+    <script>
+        /* ── Layout ─────────────────────────────────────────────── */
+        injectNavbar(document.getElementById('navbar-container'));
+        injectFooter(document.getElementById('footer-container'));
+
+        /* ── Helpers ─────────────────────────────────────────────── */
+
+        /** Return CSS class name for a style badge */
+        function badgeClass(style) {
+            const map = {
+                'Striking': 'badge-striking',
+                'Grappling': 'badge-grappling',
+                'Weapons': 'badge-weapons',
+                'Mixed': 'badge-mixed',
+            };
+            return map[style] || 'badge-striking';
+        }
+
+        /** Build a stat bar row element */
+        function buildStatBar(label, value, colorClass) {
+            const pct = (value / 10) * 100;
+            return `
+        <div class="stat-item">
+          <span class="stat-label">${label}</span>
+          <div class="stat-bar-track" role="img" aria-label="${label}: ${value} out of 10">
+            <div class="stat-bar-fill ${colorClass}" style="width:${pct}%"></div>
+          </div>
+          <span class="stat-value">${value}</span>
+        </div>`;
+        }
+
+        /** Build a single art card element */
+        function buildCard(art) {
+            const initials = art.name.split(' ').map(w => w[0]).join('').slice(0, 3).toUpperCase();
+
+            const card = document.createElement('a');
+            card.className = 'art-card';
+            card.href = `art-template.html?id=${art.id}`;
+            card.setAttribute('role', 'listitem');
+            card.setAttribute('aria-label', `${art.name} — ${art.style}`);
+
+            card.innerHTML = `
+        <div class="art-card-img-placeholder" aria-hidden="true">${initials}</div>
+        <div class="art-card-body">
+          <div class="art-card-top">
+            <span class="art-card-name">${art.name}</span>
+            <span class="style-badge ${badgeClass(art.style)}">${art.style}</span>
+          </div>
+          <div class="stat-row">
+            ${buildStatBar('Difficulty', art.difficulty, 'blue')}
+            ${buildStatBar('Injury Risk', art.injuryRisk, 'red')}
+          </div>
+        </div>`;
+
+            return card;
+        }
+
+        /* ── Render featured cards ───────────────────────────────── */
+        (function renderFeatured() {
+            const track = document.getElementById('featured-cards');
+            if (!track || typeof MARTIAL_ARTS === 'undefined') return;
+
+            // Pick 4 random arts (getShuffledArts is defined in data.js)
+            const picks = getShuffledArts().slice(0, 4);
+
+            picks.forEach(art => {
+                track.appendChild(buildCard(art));
+            });
+        })();
+    </script>
+    <script src="data.js"></script>
+    <script src="layout.js"></script>
+</body>
+
+</html>

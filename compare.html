@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compare Martial Arts — MartialGuide</title>
+    <meta name="description"
+        content="Compare any two martial arts side by side — difficulty, injury risk, equipment cost, and more." />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ── PAGE HEADER ───────────────────────────────────────── */
+        .page-header {
+            background: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            padding: 52px 24px 44px;
+        }
+
+        .page-header-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-header-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            letter-spacing: 0.03em;
+            color: #1a1a1a;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        /* ── SELECTOR PANEL ────────────────────────────────────── */
+        .selector-panel {
+            background: #fafafa;
+            border-bottom: 1px solid #e8e8e8;
+            padding: 28px 24px;
+        }
+
+        .selector-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .selector-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .selector-group label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: #999;
+        }
+
+        .art-select {
+            height: 46px;
+            padding: 0 36px 0 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #1a1a1a;
+            background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center;
+            border: 1.5px solid #ddd;
+            border-radius: 9px;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .art-select:focus {
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.07);
+        }
+
+        .art-select.selected {
+            border-color: #1a1a1a;
+        }
+
+        .vs-divider {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.08em;
+            color: #ccc;
+            padding-top: 22px;
+            flex-shrink: 0;
+        }
+
+        .btn-reset {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            background: #fff;
+            border: 1.5px solid #ddd;
+            border-radius: 9px;
+            padding: 0 18px;
+            height: 46px;
+            cursor: pointer;
+            margin-top: 22px;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-reset:hover {
+            border-color: #1a1a1a;
+            color: #1a1a1a;
+        }
+
+        /* ── PROMPT STATE (before both selected) ───────────────── */
+        .prompt-state {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .prompt-icon {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .prompt-state h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.04em;
+            color: #1a1a1a;
+        }
+
+        .prompt-state p {
+            font-size: 0.95rem;
+            color: #999;
+            max-width: 340px;
+            line-height: 1.6;
+        }
+
+        /* ── COMPARISON TABLE ──────────────────────────────────── */
+        .compare-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Reset button above table */
+        .compare-top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .compare-top-bar p {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .compare-top-bar strong {
+            color: #1a1a1a;
+        }
+
+        /* ── Table shell ── */
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e8e8e8;
+            border-radius: 14px;
+            overflow: hidden;
+            /* border-radius on table needs this wrapper trick */
+            display: block;
+        }
+
+        /* Inner table layout */
+        .compare-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* ── Header row: art names ── */
+        .compare-table thead tr {
+            background: #1a1a1a;
+        }
+
+        .col-label-th {
+            width: 160px;
+            padding: 20px 20px;
+            text-align: left;
+        }
+
+        .col-art-th {
+            padding: 20px 24px;
+            text-align: center;
+            width: calc((100% - 160px) / 2);
+        }
+
+        .art-th-initials {
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.05em;
+            margin: 0 auto 10px;
+        }
+
+        .art-th-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.04em;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .art-th-tagline {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        /* ── Body rows ── */
+        .compare-table tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .compare-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .compare-table tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .compare-table tbody tr:nth-child(odd) {
+            background: #fff;
+        }
+
+        /* Row label cell */
+        .row-label {
+            padding: 18px 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: #aaa;
+            vertical-align: top;
+            white-space: nowrap;
+            width: 160px;
+        }
+
+        /* Data cells */
+        .row-data {
+            padding: 18px 24px;
+            vertical-align: top;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #333;
+            transition: background 0.25s ease;
+        }
+
+        /* Win/lose highlight */
+        .row-data.highlight-better {
+            background: #f0fdf4 !important;
+        }
+
+        .row-data.highlight-worse {
+            background: #fff5f5 !important;
+        }
+
+        .highlight-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 100px;
+            margin-top: 6px;
+        }
+
+        .badge-better {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge-worse {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        /* Style badge */
+        .style-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 100px;
+            display: inline-block;
+        }
+
+        .badge-striking {
+            background: #fff3e0;
+            color: #c25c00;
+        }
+
+        .badge-grappling {
+            background: #e8f4fd;
+            color: #0066b3;
+        }
+
+        .badge-weapons {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .badge-mixed {
+            background: #f3e8ff;
+            color: #6d28d9;
+        }
+
+        /* Stat bar inside cell */
+        .cell-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .cell-stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.04em;
+            color: #1a1a1a;
+            line-height: 1;
+        }
+
+        .cell-stat-bar-track {
+            width: 100%;
+            max-width: 180px;
+            height: 6px;
+            background: #ebebeb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .cell-stat-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .fill-blue {
+            background: #3b82f6;
+        }
+
+        .fill-red {
+            background: #ef4444;
+        }
+
+        .fill-green {
+            background: #22c55e;
+        }
+
+        /* Equipment list */
+        .equip-list {
+            list-style: none;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .equip-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+            font-size: 0.82rem;
+            color: #555;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .equip-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .equip-item-name {
+            flex: 1;
+        }
+
+        .equip-item-cost {
+            color: #999;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .equip-total {
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 10px;
+            background: #f2f2f2;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        /* Best For pills */
+        .pills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .bestfor-pill {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 11px;
+            border-radius: 100px;
+            border: 1.5px solid #e0e0e0;
+            color: #bbb;
+            background: #fafafa;
+        }
+
+        .bestfor-pill.active {
+            background: #1a1a1a;
+            color: #fff;
+            border-color: #1a1a1a;
+        }
+
+        /* Practitioners list */
+        .practitioners-list {
+            list-style: none;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .practitioners-list li {
+            font-size: 0.85rem;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .practitioners-list li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #ccc;
+            flex-shrink: 0;
+        }
+
+        /* Origin */
+        .origin-text {
+            font-size: 0.95rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* ── MOBILE: stacked layout ─────────────────────────────── */
+        /* On small screens, hide the table and show stacked cards  */
+        .mobile-compare {
+            display: none;
+        }
+
+        @media (max-width: 700px) {
+            .compare-table {
+                display: none;
+            }
+
+            .mobile-compare {
+                display: block;
+            }
+
+            .selector-inner {
+                flex-direction: column;
+            }
+
+            .vs-divider {
+                padding-top: 0;
+                align-self: center;
+            }
+
+            .btn-reset {
+                margin-top: 0;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .selector-group {
+                min-width: 100%;
+            }
+        }
+
+        /* ── Mobile stacked cards ── */
+        .mobile-art-block {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .mobile-art-header {
+            background: #1a1a1a;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .mobile-art-initials {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            flex-shrink: 0;
+        }
+
+        .mobile-art-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: 0.04em;
+            line-height: 1;
+        }
+
+        .mobile-art-origin {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 2px;
+        }
+
+        .mobile-rows {
+            padding: 0 20px;
+        }
+
+        .mobile-row {
+            padding: 14px 0;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .mobile-row:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-row-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #bbb;
+            margin-bottom: 8px;
+        }
+
+        .mobile-stat {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            width: 36px;
+            flex-shrink: 0;
+        }
+
+        .mobile-stat-track {
+            flex: 1;
+            height: 6px;
+            background: #ebebeb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .mobile-stat-fill {
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .mobile-highlight-better {
+            background: #f0fdf4;
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin: -4px -10px;
+        }
+
+        .mobile-highlight-worse {
+            background: #fff5f5;
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin: -4px -10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <main>
+
+        <!-- PAGE HEADER -->
+        <header class="page-header">
+            <div class="page-header-inner">
+                <p class="page-header-label">Tools</p>
+                <h1>Compare Arts</h1>
+                <p>Select two martial arts to see a detailed side-by-side breakdown.</p>
+            </div>
+        </header>
+
+        <!-- SELECTOR PANEL -->
+        <div class="selector-panel">
+            <div class="selector-inner">
+
+                <div class="selector-group">
+                    <label for="select-art1">First martial art</label>
+                    <select id="select-art1" class="art-select" aria-label="Select first martial art">
+                        <option value="">Choose an art…</option>
+                    </select>
+                </div>
+
+                <span class="vs-divider" aria-hidden="true">VS</span>
+
+                <div class="selector-group">
+                    <label for="select-art2">Second martial art</label>
+                    <select id="select-art2" class="art-select" aria-label="Select second martial art">
+                        <option value="">Choose an art…</option>
+                    </select>
+                </div>
+
+                <button class="btn-reset" id="btn-reset" aria-label="Reset dropdowns and compare different arts">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="1 4 1 10 7 10" />
+                        <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+                    </svg>
+                    Reset
+                </button>
+
+            </div>
+        </div>
+
+        <!-- COMPARISON OUTPUT -->
+        <div id="compare-output">
+            <!-- JS renders either prompt or comparison here -->
+        </div>
+
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="data.js"></script>
+    <script src="layout.js"></script>
+    <script>
+        /* ── Layout ─────────────────────────────────────────────── */
+        injectNavbar(document.getElementById('navbar-container'));
+        injectFooter(document.getElementById('footer-container'));
+
+        /* ── DOM refs ───────────────────────────────────────────── */
+        const sel1 = document.getElementById('select-art1');
+        const sel2 = document.getElementById('select-art2');
+        const output = document.getElementById('compare-output');
+        const btnReset = document.getElementById('btn-reset');
+
+        /* ── Populate dropdowns from data.js ─────────────────────── */
+        MARTIAL_ARTS.forEach(art => {
+            [sel1, sel2].forEach(sel => {
+                const opt = document.createElement('option');
+                opt.value = art.id;
+                opt.textContent = art.name;
+                sel.appendChild(opt);
+            });
+        });
+
+        /* ── Pre-select from URL params ──────────────────────────── */
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('art1')) sel1.value = params.get('art1');
+        if (params.get('art2')) sel2.value = params.get('art2');
+
+        /* ── Helpers ─────────────────────────────────────────────── */
+        function badgeClass(style) {
+            return { Striking: 'badge-striking', Grappling: 'badge-grappling', Weapons: 'badge-weapons', Mixed: 'badge-mixed' }[style] || 'badge-striking';
+        }
+
+        function initials(name) {
+            return name.split(' ').map(w => w[0]).join('').slice(0, 3).toUpperCase();
+        }
+
+        const ALL_TAGS = ['Self-defense', 'Sport', 'Fitness', 'Discipline'];
+
+        /* ── Render: prompt state ────────────────────────────────── */
+        function renderPrompt() {
+            const missing = (!sel1.value && !sel2.value)
+                ? 'Select two martial arts above to start comparing.'
+                : 'Select a second martial art to see the full comparison.';
+            output.innerHTML = `
+        <div class="prompt-state" role="status" aria-live="polite">
+          <div class="prompt-icon" aria-hidden="true">⚔️</div>
+          <h2>Choose Two Arts</h2>
+          <p>${missing}</p>
+        </div>`;
+        }
+
+        /* ── Render: stat cell (with bar) ───────────────────────── */
+        function statCell(value, colorClass, winClass, badgeLabel) {
+            const pct = (value / 10) * 100;
+            return `
+        <td class="row-data ${winClass}">
+          <div class="cell-stat">
+            <span class="cell-stat-value">${value}<span style="font-family:'DM Sans',sans-serif;font-size:0.7rem;color:#aaa;font-weight:500"> /10</span></span>
+            <div class="cell-stat-bar-track" role="img" aria-label="${value} out of 10">
+              <div class="cell-stat-bar-fill ${colorClass}" style="width:${pct}%"></div>
+            </div>
+            ${badgeLabel ? `<span class="highlight-badge ${winClass === 'highlight-better' ? 'badge-better' : 'badge-worse'}">${badgeLabel}</span>` : ''}
+          </div>
+        </td>`;
+        }
+
+        /* ── Render: equipment cell ─────────────────────────────── */
+        function equipCell(art) {
+            const total = getTotalEquipmentCost(art);
+            const rows = art.equipmentList.map(e => `
+        <li>
+          <span class="equip-item-name">${e.item}</span>
+          <span class="equip-item-cost">~$${e.estimatedCostUSD}</span>
+        </li>`).join('');
+            return `
+        <td class="row-data">
+          <ul class="equip-list">${rows}</ul>
+          <div class="equip-total">
+            <span>Total</span>
+            <span>~$${total}</span>
+          </div>
+        </td>`;
+        }
+
+        /* ── Render: pills cell ─────────────────────────────────── */
+        function pillsCell(art) {
+            const pills = ALL_TAGS.map(tag => `
+        <span class="bestfor-pill ${art.bestFor.includes(tag) ? 'active' : ''}">${tag}</span>
+      `).join('');
+            return `<td class="row-data"><div class="pills-wrap">${pills}</div></td>`;
+        }
+
+        /* ── Render: practitioners cell ─────────────────────────── */
+        function practitionersCell(art) {
+            const items = art.famousPractitioners.map(p => `<li>${p}</li>`).join('');
+            return `<td class="row-data"><ul class="practitioners-list">${items}</ul></td>`;
+        }
+
+        /* ── Render: mobile stat row ─────────────────────────────── */
+        function mobileStatRow(label, value, colorClass, highlightClass, badgeLabel) {
+            const pct = (value / 10) * 100;
+            return `
+        <div class="mobile-row">
+          <div class="mobile-row-label">${label}</div>
+          <div class="mobile-stat ${highlightClass}">
+            <span class="mobile-stat-value">${value}</span>
+            <div class="mobile-stat-track">
+              <div class="mobile-stat-fill ${colorClass}" style="width:${pct}%"></div>
+            </div>
+            ${badgeLabel ? `<span class="highlight-badge ${highlightClass === 'mobile-highlight-better' ? 'badge-better' : 'badge-worse'}">${badgeLabel}</span>` : ''}
+          </div>
+        </div>`;
+        }
+
+        /* ── Render: mobile block for one art ───────────────────── */
+        function mobileArtBlock(art, diffClass, riskClass, diffBadge, riskBadge) {
+            const total = getTotalEquipmentCost(art);
+            const equipRows = art.equipmentList.map(e =>
+                `<li><span class="equip-item-name">${e.item}</span><span class="equip-item-cost">~$${e.estimatedCostUSD}</span></li>`
+            ).join('');
+            const pills = ALL_TAGS.map(tag =>
+                `<span class="bestfor-pill ${art.bestFor.includes(tag) ? 'active' : ''}">${tag}</span>`
+            ).join('');
+            const practitioners = art.famousPractitioners.map(p => `<li>${p}</li>`).join('');
+
+            return `
+        <div class="mobile-art-block">
+          <div class="mobile-art-header">
+            <div class="mobile-art-initials" aria-hidden="true">${initials(art.name)}</div>
+            <div>
+              <div class="mobile-art-name">${art.name}</div>
+              <div class="mobile-art-origin">${art.origin}</div>
+            </div>
+          </div>
+          <div class="mobile-rows">
+            <div class="mobile-row">
+              <div class="mobile-row-label">Style</div>
+              <span class="style-badge ${badgeClass(art.style)}">${art.style}</span>
+            </div>
+            ${mobileStatRow('Difficulty', art.difficulty, 'fill-blue',
+                diffClass === 'highlight-better' ? 'mobile-highlight-better' : (diffClass === 'highlight-worse' ? 'mobile-highlight-worse' : ''),
+                diffBadge)}
+            ${mobileStatRow('Injury Risk', art.injuryRisk, 'fill-red',
+                    riskClass === 'highlight-better' ? 'mobile-highlight-better' : (riskClass === 'highlight-worse' ? 'mobile-highlight-worse' : ''),
+                    riskBadge)}
+            ${mobileStatRow('Fitness Required', art.fitnessRequired, 'fill-green', '', '')}
+            <div class="mobile-row">
+              <div class="mobile-row-label">Equipment &amp; Cost</div>
+              <ul class="equip-list">${equipRows}</ul>
+              <div class="equip-total"><span>Total</span><span>~$${total}</span></div>
+            </div>
+            <div class="mobile-row">
+              <div class="mobile-row-label">Best For</div>
+              <div class="pills-wrap">${pills}</div>
+            </div>
+            <div class="mobile-row">
+              <div class="mobile-row-label">Origin</div>
+              <span class="origin-text">${art.origin}</span>
+            </div>
+            <div class="mobile-row">
+              <div class="mobile-row-label">Famous Practitioners</div>
+              <ul class="practitioners-list">${practitioners}</ul>
+            </div>
+          </div>
+        </div>`;
+        }
+
+        /* ── Main render: full comparison ───────────────────────── */
+        function renderComparison(a, b) {
+
+            /* ── Determine better/worse for each stat (lower = better) ── */
+            function statClasses(valA, valB) {
+                if (valA === valB) return ['', '', '', ''];
+                const betterA = valA < valB;
+                return [
+                    betterA ? 'highlight-better' : 'highlight-worse',
+                    betterA ? 'highlight-worse' : 'highlight-better',
+                    betterA ? 'Easier' : 'Harder',
+                    betterA ? 'Harder' : 'Easier',
+                ];
+            }
+            function riskClasses(valA, valB) {
+                if (valA === valB) return ['', '', '', ''];
+                const betterA = valA < valB;
+                return [
+                    betterA ? 'highlight-better' : 'highlight-worse',
+                    betterA ? 'highlight-worse' : 'highlight-better',
+                    betterA ? 'Safer' : 'Riskier',
+                    betterA ? 'Riskier' : 'Safer',
+                ];
+            }
+
+            const [dClassA, dClassB, dBadgeA, dBadgeB] = statClasses(a.difficulty, b.difficulty);
+            const [rClassA, rClassB, rBadgeA, rBadgeB] = riskClasses(a.injuryRisk, b.injuryRisk);
+
+            const totalA = getTotalEquipmentCost(a);
+            const totalB = getTotalEquipmentCost(b);
+
+            output.innerHTML = `
+        <section class="compare-section" aria-label="Comparison of ${a.name} and ${b.name}">
+
+          <div class="compare-top-bar">
+            <p>Comparing <strong>${a.name}</strong> vs <strong>${b.name}</strong></p>
+          </div>
+
+          <!-- ── DESKTOP TABLE ── -->
+          <div class="compare-table" role="table" aria-label="Side-by-side comparison">
+            <table>
+              <thead>
+                <tr>
+                  <th class="col-label-th" scope="col" style="background:#1a1a1a;"></th>
+                  <th class="col-art-th" scope="col">
+                    <div class="art-th-initials" aria-hidden="true">${initials(a.name)}</div>
+                    <div class="art-th-name">${a.name}</div>
+                    <div class="art-th-tagline">${a.origin}</div>
+                  </th>
+                  <th class="col-art-th" scope="col">
+                    <div class="art-th-initials" aria-hidden="true">${initials(b.name)}</div>
+                    <div class="art-th-name">${b.name}</div>
+                    <div class="art-th-tagline">${b.origin}</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- Style -->
+                <tr>
+                  <td class="row-label" scope="row">Style</td>
+                  <td class="row-data"><span class="style-badge ${badgeClass(a.style)}">${a.style}</span></td>
+                  <td class="row-data"><span class="style-badge ${badgeClass(b.style)}">${b.style}</span></td>
+                </tr>
+
+                <!-- Difficulty -->
+                <tr>
+                  <td class="row-label" scope="row">Difficulty</td>
+                  ${statCell(a.difficulty, 'fill-blue', dClassA, dBadgeA)}
+                  ${statCell(b.difficulty, 'fill-blue', dClassB, dBadgeB)}
+                </tr>
+
+                <!-- Injury Risk -->
+                <tr>
+                  <td class="row-label" scope="row">Injury Risk</td>
+                  ${statCell(a.injuryRisk, 'fill-red', rClassA, rBadgeA)}
+                  ${statCell(b.injuryRisk, 'fill-red', rClassB, rBadgeB)}
+                </tr>
+
+                <!-- Fitness Required -->
+                <tr>
+                  <td class="row-label" scope="row">Fitness<br>Required</td>
+                  ${statCell(a.fitnessRequired, 'fill-green', '', '')}
+                  ${statCell(b.fitnessRequired, 'fill-green', '', '')}
+                </tr>
+
+                <!-- Equipment -->
+                <tr>
+                  <td class="row-label" scope="row">Equipment<br>&amp; Cost</td>
+                  ${equipCell(a)}
+                  ${equipCell(b)}
+                </tr>
+
+                <!-- Cost highlight -->
+                <tr>
+                  <td class="row-label" scope="row">Total Cost</td>
+                  <td class="row-data ${totalA === totalB ? '' : totalA < totalB ? 'highlight-better' : 'highlight-worse'}">
+                    <strong style="font-size:1.1rem;">~$${totalA}</strong>
+                    ${totalA !== totalB ? `<br><span class="highlight-badge ${totalA < totalB ? 'badge-better' : 'badge-worse'}">${totalA < totalB ? 'Cheaper' : 'Pricier'}</span>` : ''}
+                  </td>
+                  <td class="row-data ${totalA === totalB ? '' : totalB < totalA ? 'highlight-better' : 'highlight-worse'}">
+                    <strong style="font-size:1.1rem;">~$${totalB}</strong>
+                    ${totalA !== totalB ? `<br><span class="highlight-badge ${totalB < totalA ? 'badge-better' : 'badge-worse'}">${totalB < totalA ? 'Cheaper' : 'Pricier'}</span>` : ''}
+                  </td>
+                </tr>
+
+                <!-- Best For -->
+                <tr>
+                  <td class="row-label" scope="row">Best For</td>
+                  ${pillsCell(a)}
+                  ${pillsCell(b)}
+                </tr>
+
+                <!-- Origin -->
+                <tr>
+                  <td class="row-label" scope="row">Origin</td>
+                  <td class="row-data"><span class="origin-text">${a.origin}</span></td>
+                  <td class="row-data"><span class="origin-text">${b.origin}</span></td>
+                </tr>
+
+                <!-- Famous Practitioners -->
+                <tr>
+                  <td class="row-label" scope="row">Famous<br>Practitioners</td>
+                  ${practitionersCell(a)}
+                  ${practitionersCell(b)}
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ── MOBILE STACKED ── -->
+          <div class="mobile-compare" aria-label="Mobile comparison">
+            ${mobileArtBlock(a, dClassA, rClassA, dBadgeA, rBadgeA)}
+            ${mobileArtBlock(b, dClassB, rClassB, dBadgeB, rBadgeB)}
+          </div>
+
+        </section>`;
+        }
+
+        /* ── Update URL params without reload ───────────────────── */
+        function updateURL() {
+            const url = new URL(window.location.href);
+            if (sel1.value) url.searchParams.set('art1', sel1.value);
+            else url.searchParams.delete('art1');
+            if (sel2.value) url.searchParams.set('art2', sel2.value);
+            else url.searchParams.delete('art2');
+            window.history.replaceState({}, '', url.toString());
+        }
+
+        /* ── Main update function ────────────────────────────────── */
+        function update() {
+            const a = sel1.value ? getArtById(sel1.value) : null;
+            const b = sel2.value ? getArtById(sel2.value) : null;
+
+            sel1.classList.toggle('selected', !!sel1.value);
+            sel2.classList.toggle('selected', !!sel2.value);
+
+            updateURL();
+
+            if (a && b) {
+                renderComparison(a, b);
+            } else {
+                renderPrompt();
+            }
+        }
+
+        /* ── Reset ───────────────────────────────────────────────── */
+        btnReset.addEventListener('click', () => {
+            sel1.value = '';
+            sel2.value = '';
+            update();
+        });
+
+        /* ── Event listeners ─────────────────────────────────────── */
+        sel1.addEventListener('change', update);
+        sel2.addEventListener('change', update);
+
+        /* ── Initial render ──────────────────────────────────────── */
+        update();
+    </script>
+
+</body>
+
+</html>
