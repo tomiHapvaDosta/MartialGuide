@@ -1,5 +1,24 @@
-/* ── ART-TEMPLATE.HTML STYLES ── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
+/* ── Scroll-reveal base ────────────────────────────────── */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* ── BREADCRUMB ─────────────────────────────────────── */
 .breadcrumb {
     padding: 16px 24px;
     background: #fff;
@@ -27,6 +46,16 @@
     color: #1a1a1a;
 }
 
+.breadcrumb-sep {
+    color: #ddd;
+}
+
+.breadcrumb-current {
+    color: #555;
+    font-weight: 500;
+}
+
+/* ── HERO ───────────────────────────────────────────── */
 .art-hero {
     position: relative;
     width: 100%;
@@ -35,6 +64,7 @@
     overflow: hidden;
 }
 
+/* Placeholder gradient stands in for real image */
 .art-hero-bg {
     position: absolute;
     inset: 0;
@@ -44,10 +74,93 @@
     justify-content: center;
 }
 
+.art-hero-bg-initials {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 14vw, 11rem);
+    color: rgba(255, 255, 255, 0.07);
+    letter-spacing: 0.05em;
+    user-select: none;
+}
+
+/* Dark gradient overlay so text is always readable */
 .art-hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.05) 100%);
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.82) 0%,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0.05) 100%);
+}
+
+.art-hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Re-center within page */
+.art-hero {
+    display: flex;
+    justify-content: center;
+}
+
+.art-hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1100px;
+    padding: 28px 32px;
+}
+
+.art-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.art-hero-origin {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.style-badge {
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    flex-shrink: 0;
+}
+
+.badge-striking {
+    background: #fff3e0;
+    color: #c25c00;
+}
+
+.badge-grappling {
+    background: #e8f4fd;
+    color: #0066b3;
+}
+
+.badge-weapons {
+    background: #fce4ec;
+    color: #c2185b;
+}
+
+.badge-mixed {
+    background: #f3e8ff;
+    color: #6d28d9;
 }
 
 .art-hero h1 {
@@ -58,6 +171,15 @@
     line-height: 1;
 }
 
+.art-hero-tagline {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 540px;
+    line-height: 1.5;
+}
+
+/* ── QUICK STATS ────────────────────────────────────── */
 .quick-stats {
     background: #fff;
     border-bottom: 1px solid #eeeeee;
@@ -72,6 +194,64 @@
     gap: 24px;
 }
 
+.stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-block-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+}
+
+.stat-block-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat-bar-track {
+    flex: 1;
+    height: 7px;
+    background: #ebebeb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    width: 0;
+    /* animated in by JS */
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-bar-fill.blue {
+    background: #3b82f6;
+}
+
+.stat-bar-fill.red {
+    background: #ef4444;
+}
+
+.stat-bar-fill.green {
+    background: #22c55e;
+}
+
+.stat-block-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #333;
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* ── MAIN CONTENT LAYOUT ──────────────────────────────── */
 .art-body {
     max-width: 1100px;
     margin: 0 auto;
@@ -82,6 +262,19 @@
     align-items: start;
 }
 
+.art-main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.art-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ── INFO CARD ──────────────────────────────────────── */
 .info-card {
     background: #fff;
     border: 1px solid #e8e8e8;
@@ -92,6 +285,158 @@
     gap: 16px;
 }
 
+.info-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-card-icon {
+    width: 36px;
+    height: 36px;
+    background: #f2f2f2;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.info-card h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* Fighting style description */
+.style-description {
+    font-size: 0.92rem;
+    color: #555;
+    line-height: 1.75;
+}
+
+/* Equipment list */
+.equipment-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.equipment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f4f4f4;
+    gap: 12px;
+}
+
+.equipment-item:last-child {
+    border-bottom: none;
+}
+
+.equipment-item-name {
+    font-size: 0.875rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.equipment-item-cost {
+    font-size: 0.875rem;
+    color: #888;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.equipment-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background: #f6f6f6;
+    border-radius: 8px;
+    margin-top: 4px;
+}
+
+.equipment-total-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.equipment-total-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* Best For pills */
+.bestfor-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.bestfor-pill {
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 100px;
+    border: 1.5px solid #e0e0e0;
+    color: #bbb;
+    background: #fafafa;
+}
+
+.bestfor-pill.active {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+}
+
+/* History */
+.history-text {
+    font-size: 0.92rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+/* Practitioners */
+.practitioners-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.practitioners-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f4f4f4;
+    font-size: 0.875rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.practitioners-item:last-child {
+    border-bottom: none;
+}
+
+.practitioners-item::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    flex-shrink: 0;
+}
+
+/* ── SIDEBAR: COMPARE BUTTON ──────────────────────────── */
 .compare-card {
     background: #1a1a1a;
     border-radius: 14px;
@@ -103,10 +448,72 @@
     top: calc(64px + 16px);
 }
 
+.compare-card h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+}
+
+.compare-card p {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.55;
+}
+
+.btn-compare {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    margin-top: 4px;
+}
+
+.btn-compare:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* ── RELATED ARTS ────────────────────────────────── */
 .related-section {
     background: #fafafa;
     border-top: 1px solid #e8e8e8;
     padding: 60px 24px;
+}
+
+.related-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.related-header {
+    margin-bottom: 28px;
+}
+
+.section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 6px;
+}
+
+.related-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    letter-spacing: 0.03em;
+    color: #1a1a1a;
 }
 
 .related-grid {
@@ -115,13 +522,176 @@
     gap: 20px;
 }
 
+/* Related card */
+.related-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.related-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
+}
+
+.related-card-img {
+    height: 130px;
+    background: linear-gradient(135deg, #e2e2e2 0%, #ececec 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: #c0c0c0;
+    letter-spacing: 0.06em;
+    position: relative;
+    overflow: hidden;
+}
+
+.related-card-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 8px,
+            rgba(255, 255, 255, 0.35) 8px, rgba(255, 255, 255, 0.35) 9px);
+}
+
+.related-card-img span {
+    position: relative;
+    z-index: 1;
+}
+
+.related-card-body {
+    padding: 14px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.related-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.related-card-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.related-stat-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.related-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.related-stat-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: #aaa;
+    width: 65px;
+    flex-shrink: 0;
+}
+
+.related-stat-track {
+    flex: 1;
+    height: 4px;
+    background: #ebebeb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.related-stat-fill {
+    height: 100%;
+    border-radius: 10px;
+}
+
+.related-stat-value {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #999;
+    width: 16px;
+    text-align: right;
+}
+
+/* ── NOT FOUND ────────────────────────────────────── */
+.not-found {
+    max-width: 480px;
+    margin: 100px auto;
+    text-align: center;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.not-found-icon {
+    font-size: 3.5rem;
+}
+
+.not-found h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: #1a1a1a;
+    letter-spacing: 0.04em;
+}
+
+.not-found p {
+    font-size: 0.95rem;
+    color: #777;
+    line-height: 1.6;
+}
+
+.not-found a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1a1a1a;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 11px 22px;
+    border-radius: 8px;
+    margin-top: 4px;
+    transition: opacity 0.2s;
+}
+
+.not-found a:hover {
+    opacity: 0.75;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────── */
 @media (max-width: 900px) {
     .art-body {
         grid-template-columns: 1fr;
     }
 
+    .compare-card {
+        position: static;
+        order: -1;
+        /* show compare card before info sections on mobile */
+    }
+
     .quick-stats-inner {
         grid-template-columns: 1fr;
+        gap: 14px;
     }
 
     .related-grid {
@@ -132,5 +702,17 @@
 @media (max-width: 540px) {
     .related-grid {
         grid-template-columns: 1fr;
+    }
+
+    .art-hero-content {
+        padding: 20px;
+    }
+
+    .info-card {
+        padding: 20px;
+    }
+
+    .quick-stats {
+        padding: 20px;
     }
 }

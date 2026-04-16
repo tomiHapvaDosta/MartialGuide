@@ -1,5 +1,12 @@
-/* ── QUIZ.HTML STYLES ── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
+/* ── PAGE SHELL ─────────────────────────────────────────── */
 .quiz-page {
     min-height: calc(100vh - 64px);
     background: #f7f7f7;
@@ -10,11 +17,13 @@
     padding: 52px 24px 80px;
 }
 
+/* ── PHASE WRAPPER ──────────────────────────────────────── */
 .phase {
     width: 100%;
     max-width: 620px;
 }
 
+/* ── QUIZ CARD ──────────────────────────────────────────── */
 .quiz-card {
     background: #fff;
     border: 1px solid #e8e8e8;
@@ -25,6 +34,7 @@
     overflow: hidden;
 }
 
+/* Progress bar at top of card */
 .progress-track {
     position: absolute;
     top: 0;
@@ -41,6 +51,7 @@
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Step label */
 .step-label {
     font-size: 0.72rem;
     font-weight: 700;
@@ -48,6 +59,47 @@
     text-transform: uppercase;
     color: #bbb;
     margin-bottom: 22px;
+}
+
+/* Question */
+.question-area {
+    /* Slide-transition container */
+    position: relative;
+    overflow: hidden;
+}
+
+.question-slide {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.question-slide.exit-left {
+    opacity: 0;
+    transform: translateX(-28px);
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.question-slide.enter-right {
+    opacity: 0;
+    transform: translateX(28px);
+}
+
+.question-slide.enter-left {
+    opacity: 0;
+    transform: translateX(-28px);
+}
+
+.question-slide.exit-right {
+    opacity: 0;
+    transform: translateX(28px);
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .question-text {
@@ -66,11 +118,27 @@
     line-height: 1.5;
 }
 
+/* Slider */
 .slider-wrap {
     display: flex;
     flex-direction: column;
     gap: 16px;
     margin-bottom: 36px;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: #bbb;
+    font-weight: 500;
+}
+
+/* Live value bubble */
+.slider-value-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .slider-value-bubble {
@@ -83,6 +151,17 @@
     text-align: center;
 }
 
+.slider-value-unit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #bbb;
+    font-weight: 500;
+    margin-left: 4px;
+    align-self: flex-end;
+    padding-bottom: 6px;
+}
+
+/* Range input */
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
@@ -104,6 +183,12 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
     border: 3px solid #fff;
     box-shadow: 0 0 0 1.5px #1a1a1a, 0 2px 8px rgba(0, 0, 0, 0.18);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 1.5px #1a1a1a, 0 4px 14px rgba(0, 0, 0, 0.22);
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -116,11 +201,124 @@ input[type="range"]::-moz-range-thumb {
     box-shadow: 0 0 0 1.5px #1a1a1a;
 }
 
+/* Filled track left of thumb (CSS trick via background gradient) */
+input[type="range"].styled {
+    background: linear-gradient(to right, #1a1a1a 0%, #1a1a1a var(--pct), #ebebeb var(--pct), #ebebeb 100%);
+}
+
+/* Nav buttons */
 .quiz-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.925rem;
+    font-weight: 600;
+    padding: 12px 26px;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s, background 0.2s;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-dark {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.btn-dark:hover {
+    opacity: 0.82;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: #999;
+    border: 1.5px solid #e0e0e0;
+}
+
+.btn-ghost:hover {
+    border-color: #aaa;
+    color: #555;
+}
+
+.btn-ghost:disabled {
+    opacity: 0.3;
+    cursor: default;
+    transform: none;
+}
+
+/* Dots indicator */
+.dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    transition: background 0.25s, transform 0.25s;
+}
+
+.dot.active {
+    background: #1a1a1a;
+    transform: scale(1.25);
+}
+
+.dot.done {
+    background: #aaa;
+}
+
+/* ── RESULTS PHASE ──────────────────────────────────────── */
+.results-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.results-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+.results-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    letter-spacing: 0.03em;
+    color: #1a1a1a;
+    line-height: 1.05;
+}
+
+.results-subtitle {
+    font-size: 0.95rem;
+    color: #888;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+/* Result cards */
+.results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
 }
 
 .result-card {
@@ -131,6 +329,7 @@ input[type="range"]::-moz-range-thumb {
     display: grid;
     grid-template-columns: 100px 1fr;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* Staggered entrance */
     opacity: 0;
     transform: translateY(14px);
     animation: cardEntrance 0.4s ease forwards;
@@ -143,6 +342,12 @@ input[type="range"]::-moz-range-thumb {
     }
 }
 
+.result-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.09);
+}
+
+/* Rank badge column */
 .result-rank {
     display: flex;
     flex-direction: column;
@@ -166,14 +371,145 @@ input[type="range"]::-moz-range-thumb {
     color: #c9a84c;
 }
 
+/* gold */
 .result-card:nth-child(2) .rank-number {
     color: #9ea3a8;
 }
 
+/* silver */
 .result-card:nth-child(3) .rank-number {
     color: #b87333;
 }
 
+/* bronze */
+.rank-initials {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #ccc;
+    letter-spacing: 0.06em;
+}
+
+/* Content column */
+.result-body {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.result-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.result-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.2;
+}
+
+/* Match % pill */
+.match-pill {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.result-explanation {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.65;
+}
+
+.result-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Style badge */
+.style-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 100px;
+}
+
+.badge-striking {
+    background: #fff3e0;
+    color: #c25c00;
+}
+
+.badge-grappling {
+    background: #e8f4fd;
+    color: #0066b3;
+}
+
+.badge-weapons {
+    background: #fce4ec;
+    color: #c2185b;
+}
+
+.badge-mixed {
+    background: #f3e8ff;
+    color: #6d28d9;
+}
+
+.btn-sm {
+    font-size: 0.82rem;
+    padding: 8px 16px;
+    border-radius: 7px;
+}
+
+.btn-outline-dark {
+    background: transparent;
+    color: #1a1a1a;
+    border: 1.5px solid #1a1a1a;
+}
+
+.btn-outline-dark:hover {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+/* Retake button */
+.retake-wrap {
+    text-align: center;
+}
+
+.btn-retake {
+    background: none;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #aaa;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    padding: 8px;
+    transition: color 0.2s;
+}
+
+.btn-retake:hover {
+    color: #1a1a1a;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 560px) {
     .quiz-card {
         padding: 32px 24px 28px;
@@ -181,5 +517,9 @@ input[type="range"]::-moz-range-thumb {
 
     .result-card {
         grid-template-columns: 72px 1fr;
+    }
+
+    .rank-number {
+        font-size: 1.8rem;
     }
 }
