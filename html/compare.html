@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compare Martial Arts — MartialGuide</title>
+    <meta name="description"
+        content="Compare any two martial arts side by side — difficulty, injury risk, equipment cost, and more." />
+
+    <link rel="stylesheet" href="../css/shared.css" />
+    <link rel="stylesheet" href="../css/compare.css" />
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <main>
+        <header class="page-header">
+            <div class="page-header-inner">
+                <p class="page-header-label">Tools</p>
+                <h1>Compare Arts</h1>
+                <p>Select two martial arts to see a detailed side-by-side breakdown.</p>
+            </div>
+        </header>
+
+        <div class="selector-panel">
+            <div class="selector-inner">
+                <div class="selector-group">
+                    <label for="select-art1">First martial art</label>
+                    <select id="select-art1" class="art-select" aria-label="Select first martial art">
+                        <option value="">Choose an art…</option>
+                    </select>
+                </div>
+
+                <span class="vs-divider" aria-hidden="true">VS</span>
+
+                <div class="selector-group">
+                    <label for="select-art2">Second martial art</label>
+                    <select id="select-art2" class="art-select" aria-label="Select second martial art">
+                        <option value="">Choose an art…</option>
+                    </select>
+                </div>
+
+                <button class="btn-reset" id="btn-reset" aria-label="Reset dropdowns and compare different arts">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="1 4 1 10 7 10" />
+                        <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+                    </svg>
+                    Reset
+                </button>
+            </div>
+        </div>
+
+        <div id="compare-output">
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/compare.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Browse Martial Arts — MartialGuide</title>
+    <meta name="description"
+        content="Explore all 10 martial arts. Filter by fighting style, difficulty level, and goal to find the right discipline for you." />
+
+    <link rel="stylesheet" href="../css/shared.css" />
+    <link rel="stylesheet" href="../css/browse.css" />
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <main>
+        <header class="page-header">
+            <div class="page-header-inner">
+                <p class="page-header-label">Explore</p>
+                <h1>All Martial Arts</h1>
+                <p>Explore 10 disciplines. Filter by style, difficulty, or goal.</p>
+            </div>
+        </header>
+
+        <div class="controls" role="search" aria-label="Filter martial arts">
+            <div class="controls-inner">
+                <div class="search-wrap">
+                    <span class="search-icon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                    </span>
+                    <input type="search" id="search-input" class="search-input" placeholder="Search martial arts…"
+                        aria-label="Search martial arts by name" autocomplete="off" />
+                </div>
+
+                <div class="filter-row">
+                    <div class="filters">
+                        <select id="filter-style" class="filter-select" aria-label="Filter by fighting style">
+                            <option value="">Style: All</option>
+                            <option value="Striking">Striking</option>
+                            <option value="Grappling">Grappling</option>
+                            <option value="Weapons">Weapons</option>
+                            <option value="Mixed">Mixed</option>
+                        </select>
+
+                        <select id="filter-difficulty" class="filter-select" aria-label="Filter by difficulty">
+                            <option value="">Difficulty: All</option>
+                            <option value="beginner">Beginner (1–3)</option>
+                            <option value="intermediate">Intermediate (4–6)</option>
+                            <option value="advanced">Advanced (7–10)</option>
+                        </select>
+
+                        <select id="filter-bestfor" class="filter-select" aria-label="Filter by goal">
+                            <option value="">Best For: All</option>
+                            <option value="Self-defense">Self-defense</option>
+                            <option value="Sport">Sport</option>
+                            <option value="Fitness">Fitness</option>
+                            <option value="Discipline">Discipline</option>
+                        </select>
+                    </div>
+
+                    <button id="btn-clear" class="btn-clear" disabled aria-label="Clear all filters">
+                        Clear filters
+                    </button>
+                </div>
+
+                <p class="results-meta" id="results-meta" aria-live="polite" aria-atomic="true">
+                    Showing <strong id="results-count">10</strong> results
+                </p>
+            </div>
+        </div>
+
+        <section class="grid-section" aria-label="Martial arts results">
+            <div class="grid-inner">
+                <div class="arts-grid" id="arts-grid" role="list">
+                </div>
+                <div class="empty-state" id="empty-state" role="status" aria-live="polite">
+                    <div class="empty-icon" aria-hidden="true">🥋</div>
+                    <h3>No results found</h3>
+                    <p>Try adjusting your search or clearing the filters.</p>
+                    <button class="btn-reset-empty" id="btn-reset-empty">Clear all filters</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/browse.js"></script>
+</body>
+
+</html>

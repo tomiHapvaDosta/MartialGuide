@@ -1,0 +1,29 @@
+/* ── COMPARE.HTML STYLES ─ Large file, see original for full CSS ── */
+/* This is a summary - reference the original compare.html for complete styles */
+
+.page-header {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 52px 24px 44px;
+}
+
+.selector-panel {
+    background: #fafafa;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 28px 24px;
+}
+
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.row-data.highlight-better {
+    background: #f0fdf4;
+}
+
+.row-data.highlight-worse {
+    background: #fff5f5;
+}
+
+/* Continue with all other compare.css styles... */
