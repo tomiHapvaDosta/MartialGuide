@@ -338,6 +338,106 @@ const MARTIAL_ARTS = [
         image: "/images/aikido.jpg",
     },
 
+    // ─────────────────────────────────────────────────────────────
+    // 11. KICKBOXING
+    // ─────────────────────────────────────────────────────────────
+    {
+        id: "kickboxing",
+        name: "Kickboxing",
+        origin: "Japan / United States",
+        tagline: "High-energy striking combining boxing punches with powerful kicks.",
+        style: "Striking",
+        bestFor: ["Fitness", "Sport", "Self-defense"],
+        difficulty: 5,
+        injuryRisk: 6,
+        fitnessRequired: 7,
+        equipmentList: [
+            { item: "Boxing gloves", estimatedCostUSD: 60 },
+            { item: "Hand wraps", estimatedCostUSD: 10 },
+            { item: "Shin guards", estimatedCostUSD: 40 },
+            { item: "Mouth guard", estimatedCostUSD: 15 },
+            { item: "Headgear", estimatedCostUSD: 55 },
+            { item: "Kickboxing shorts", estimatedCostUSD: 30 },
+            { item: "Jump rope", estimatedCostUSD: 15 },
+        ],
+        history:
+            "Kickboxing emerged simultaneously in Japan and the United States during the 1950s and 1960s as martial artists sought to combine the hand techniques of Western boxing with the kicking methods of Karate and Muay Thai. Japanese promoter Osamu Noguchi is widely credited with formalising the sport in Japan in the 1960s, while American full-contact karate developed independently on the West Coast around the same time. The sport gained widespread mainstream appeal in the 1970s and 1980s through televised bouts and the rise of prominent champions like Benny Urquidez. Today kickboxing encompasses several rulesets — K-1, American full-contact, and low-kick — each with slightly different permitted techniques. It is also one of the most popular fitness training formats globally, practiced by millions who never intend to compete.",
+        famousPractitioners: [
+            "Benny Urquidez",
+            "Giorgio Petrosyan",
+            "Rico Verhoeven",
+            "Billy Blanks (Tae Bo fitness)",
+        ],
+        image: "/images/kickboxing.jpg",
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // 12. MMA (MIXED MARTIAL ARTS)
+    // ─────────────────────────────────────────────────────────────
+    {
+        id: "mma",
+        name: "MMA",
+        origin: "United States",
+        tagline: "No rules, every range — the complete combat sport blending all disciplines.",
+        style: "Mixed",
+        bestFor: ["Sport", "Fitness", "Self-defense"],
+        difficulty: 9,
+        injuryRisk: 9,
+        fitnessRequired: 10,
+        equipmentList: [
+            { item: "MMA gloves", estimatedCostUSD: 45 },
+            { item: "Boxing gloves", estimatedCostUSD: 60 },
+            { item: "Hand wraps", estimatedCostUSD: 10 },
+            { item: "Shin guards", estimatedCostUSD: 40 },
+            { item: "Mouth guard", estimatedCostUSD: 20 },
+            { item: "Groin protector", estimatedCostUSD: 25 },
+            { item: "Headgear", estimatedCostUSD: 55 },
+            { item: "Rash guard", estimatedCostUSD: 35 },
+            { item: "MMA shorts", estimatedCostUSD: 40 },
+        ],
+        history:
+            "Mixed Martial Arts as a modern sport was catalysed by the launch of the Ultimate Fighting Championship (UFC) in 1993, created to determine which martial art was most effective in a real fight with minimal rules. Early events featured specialists from single disciplines — Brazilian Jiu-Jitsu, Wrestling, Boxing, Sumo — competing against each other, and it quickly became clear that fighters who could operate across multiple ranges had a decisive advantage. The sport drew on earlier traditions of vale tudo (anything goes) fighting in Brazil and shoot wrestling in Japan. Over the following decades athletes began cross-training comprehensively, and MMA evolved into its own distinct discipline requiring proficiency in striking, wrestling, and ground fighting. Today the UFC is the largest combat sports organisation in the world, and MMA is practised by millions as both a competitive sport and a comprehensive self-defence system.",
+        famousPractitioners: [
+            "Conor McGregor",
+            "Khabib Nurmagomedov",
+            "Jon Jones",
+            "Amanda Nunes",
+        ],
+        image: "/images/mma.jpg",
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // 13. BARE KNUCKLE FIGHTING
+    // ─────────────────────────────────────────────────────────────
+    {
+        id: "bare-knuckle",
+        name: "Bare Knuckle",
+        origin: "United Kingdom",
+        tagline: "Raw, unpadded striking — the original form of fist fighting.",
+        style: "Striking",
+        bestFor: ["Sport", "Self-defense"],
+        difficulty: 7,
+        injuryRisk: 10,
+        fitnessRequired: 8,
+        equipmentList: [
+            { item: "Hand wrap / gauze", estimatedCostUSD: 8 },
+            { item: "Mouth guard", estimatedCostUSD: 20 },
+            { item: "Groin protector", estimatedCostUSD: 25 },
+            { item: "Boxing shoes", estimatedCostUSD: 60 },
+            { item: "Heavy bag", estimatedCostUSD: 120 },
+            { item: "Comfortable shorts", estimatedCostUSD: 25 },
+        ],
+        history:
+            "Bare knuckle fighting is the oldest codified form of boxing, predating the use of padded gloves by centuries. It was the dominant form of prize fighting in Britain and America throughout the 18th and 19th centuries, governed by the London Prize Ring Rules of 1743 which established the first formal framework for the sport. Bouts were often fought to exhaustion with no round limits, and champions like Jem Mace and John L. Sullivan became genuine national celebrities. The introduction of the Marquess of Queensberry Rules in 1867 — requiring gloves and timed rounds — gradually displaced bare knuckle as the mainstream standard, and the sport was effectively driven underground for over a century. It has experienced a significant organised revival since the 2010s through promotions such as Bare Knuckle Fighting Championship (BKFC), which operates legally in numerous US states and internationally, attracting both veteran boxers and MMA fighters.",
+        famousPractitioners: [
+            "John L. Sullivan (last bare knuckle heavyweight champion)",
+            "Jem Mace",
+            "Paulie Malignaggi (crossed over from boxing)",
+            "Artem Lobov (crossed over from MMA)",
+        ],
+        image: "/images/bare-knuckle.jpg",
+    },
+
 ];
 
 // ─────────────────────────────────────────────────────────────
