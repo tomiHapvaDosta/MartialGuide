@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Find Your Martial Art — MartialGuide Quiz</title>
-    <meta name="description"
-        content="Answer 5 quick questions and we'll match you with the perfect martial art for your goals, fitness level, and budget." />
+    <title>Find Your Martial Art — MartialGuide</title>
+    <meta name="description" content="10 questions. No fluff. Find out which martial art actually fits you." />
 
     <link rel="stylesheet" href="../css/quiz.css">
 
@@ -17,12 +16,67 @@
     <div id="navbar-container"></div>
 
     <div class="quiz-page">
-        <div class="phase" id="quiz-phase">
-            <!-- Quiz card rendered by JS -->
+
+        <div class="quiz-intro">
+            <p class="quiz-intro-eyebrow">10 questions · no fluff</p>
+            <h1>Find Your Martial Art</h1>
+            <p>Answer honestly. We'll match you to the discipline that actually fits your goals, body, and budget.</p>
         </div>
-        <div class="phase" id="results-phase" style="display:none;">
-            <!-- Results rendered by JS -->
+
+        <!-- ── QUIZ CARD ─────────────────────────────────────────── -->
+        <div class="quiz-card" id="quiz-card">
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="card-inner">
+                <div class="step-counter">
+                    <span id="step-label">Question 1 of 10</span>
+                    <div class="step-dots" id="step-dots" aria-hidden="true"></div>
+                </div>
+                <div class="question-viewport" id="question-viewport"></div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn btn-ghost" id="btn-back" disabled aria-label="Previous question">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                    Back
+                </button>
+                <button class="btn btn-dark" id="btn-next" aria-label="Next question">
+                    Next
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </button>
+            </div>
         </div>
+
+        <!-- ── CALCULATING SCREEN ────────────────────────────────── -->
+        <div id="calculating-screen" role="status" aria-live="polite">
+            <div class="calc-spinner" aria-hidden="true"></div>
+            <div class="calc-messages-wrap">
+                <div id="calc-messages"></div>
+            </div>
+            <div class="calc-bar-track">
+                <div class="calc-bar-fill" id="calc-bar"></div>
+            </div>
+        </div>
+
+        <!-- ── RESULTS SCREEN ────────────────────────────────────── -->
+        <div id="results-screen" role="main">
+            <div class="results-header">
+                <p class="results-eyebrow">Your results</p>
+                <h2 class="results-title">Your Top Matches</h2>
+                <p class="results-subheading" id="results-subheading"></p>
+            </div>
+            <div id="results-list" style="width:100%;display:flex;flex-direction:column;gap:16px;"></div>
+            <div class="retake-wrap">
+                <button class="btn-retake" id="btn-retake">← Retake the quiz</button>
+            </div>
+        </div>
+
     </div>
 
     <div id="footer-container"></div>
