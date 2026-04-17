@@ -1,4 +1,3 @@
-*,
 *::before,
 *::after {
     box-sizing: border-box;
@@ -6,7 +5,7 @@
     padding: 0;
 }
 
-/* ── Scroll-reveal base ────────────────────────────────── */
+/* ── Scroll-reveal base ─────────────────────────────────── */
 .reveal {
     opacity: 0;
     transform: translateY(18px);
@@ -18,7 +17,7 @@
     transform: none;
 }
 
-/* ── BREADCRUMB ─────────────────────────────────────── */
+/* ── BREADCRUMB ─────────────────────────────────────────── */
 .breadcrumb {
     padding: 16px 24px;
     background: #fff;
@@ -55,7 +54,7 @@
     font-weight: 500;
 }
 
-/* ── HERO ───────────────────────────────────────────── */
+/* ── HERO ───────────────────────────────────────────────── */
 .art-hero {
     position: relative;
     width: 100%;
@@ -179,7 +178,7 @@
     line-height: 1.5;
 }
 
-/* ── QUICK STATS ────────────────────────────────────── */
+/* ── QUICK STATS ────────────────────────────────────────── */
 .quick-stats {
     background: #fff;
     border-bottom: 1px solid #eeeeee;
@@ -251,7 +250,7 @@
     flex-shrink: 0;
 }
 
-/* ── MAIN CONTENT LAYOUT ──────────────────────────────── */
+/* ── MAIN CONTENT LAYOUT ────────────────────────────────── */
 .art-body {
     max-width: 1100px;
     margin: 0 auto;
@@ -274,7 +273,7 @@
     gap: 24px;
 }
 
-/* ── INFO CARD ──────────────────────────────────────── */
+/* ── INFO CARD ──────────────────────────────────────────── */
 .info-card {
     background: #fff;
     border: 1px solid #e8e8e8;
@@ -436,7 +435,7 @@
     flex-shrink: 0;
 }
 
-/* ── SIDEBAR: COMPARE BUTTON ──────────────────────────── */
+/* ── SIDEBAR: COMPARE BUTTON ────────────────────────────── */
 .compare-card {
     background: #1a1a1a;
     border-radius: 14px;
@@ -484,7 +483,7 @@
     transform: translateY(-1px);
 }
 
-/* ── RELATED ARTS ────────────────────────────────── */
+/* ── RELATED ARTS ───────────────────────────────────────── */
 .related-section {
     background: #fafafa;
     border-top: 1px solid #e8e8e8;
@@ -628,7 +627,7 @@
     text-align: right;
 }
 
-/* ── NOT FOUND ────────────────────────────────────── */
+/* ── NOT FOUND ──────────────────────────────────────────── */
 .not-found {
     max-width: 480px;
     margin: 100px auto;
@@ -677,7 +676,7 @@
     opacity: 0.75;
 }
 
-/* ── RESPONSIVE ────────────────────────────────────── */
+/* ── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 900px) {
     .art-body {
         grid-template-columns: 1fr;

@@ -8,8 +8,8 @@
     <meta name="description"
         content="Compare any two martial arts side by side — difficulty, injury risk, equipment cost, and more." />
 
-    <link rel="stylesheet" href="../css/shared.css" />
-    <link rel="stylesheet" href="../css/compare.css" />
+    <link rel="stylesheet" href="../css/compare.css">
+
 </head>
 
 <body>
@@ -17,6 +17,8 @@
     <div id="navbar-container"></div>
 
     <main>
+
+        <!-- PAGE HEADER -->
         <header class="page-header">
             <div class="page-header-inner">
                 <p class="page-header-label">Tools</p>
@@ -25,8 +27,10 @@
             </div>
         </header>
 
+        <!-- SELECTOR PANEL -->
         <div class="selector-panel">
             <div class="selector-inner">
+
                 <div class="selector-group">
                     <label for="select-art1">First martial art</label>
                     <select id="select-art1" class="art-select" aria-label="Select first martial art">
@@ -51,11 +55,15 @@
                     </svg>
                     Reset
                 </button>
+
             </div>
         </div>
 
+        <!-- COMPARISON OUTPUT -->
         <div id="compare-output">
+            <!-- JS renders either prompt or comparison here -->
         </div>
+
     </main>
 
     <div id="footer-container"></div>
@@ -63,6 +71,7 @@
     <script src="../js/data.js"></script>
     <script src="../js/layout.js"></script>
     <script src="../js/compare.js"></script>
+
 </body>
 
 </html>

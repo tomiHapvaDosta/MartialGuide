@@ -184,7 +184,7 @@
     color: #1a1a1a;
 }
 
-/* ── CARD GRID ──────────────────────────────────────────────– */
+/* ── CARD GRID ──────────────────────────────────────────────── */
 .grid-section {
     padding: 36px 24px 80px;
     background: #fff;
@@ -397,7 +397,7 @@
     padding: 2px 7px;
 }
 
-/* ── EMPTY STATE ────────────────────────────────────────────– */
+/* ── EMPTY STATE ────────────────────────────────────────────── */
 .empty-state {
     display: none;
     flex-direction: column;
@@ -449,7 +449,7 @@
     opacity: 0.75;
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────────────– */
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 1100px) {
     .arts-grid {
         grid-template-columns: repeat(3, 1fr);

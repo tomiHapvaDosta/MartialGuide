@@ -8,15 +8,18 @@
     <meta name="description"
         content="Explore all 10 martial arts. Filter by fighting style, difficulty level, and goal to find the right discipline for you." />
 
-    <link rel="stylesheet" href="../css/shared.css" />
-    <link rel="stylesheet" href="../css/browse.css" />
+    <link rel="stylesheet" href="../css/browse.css">
+
 </head>
 
 <body>
 
+    <!-- NAVBAR -->
     <div id="navbar-container"></div>
 
     <main>
+
+        <!-- ── PAGE HEADER ─────────────────────────────────────────── -->
         <header class="page-header">
             <div class="page-header-inner">
                 <p class="page-header-label">Explore</p>
@@ -25,8 +28,11 @@
             </div>
         </header>
 
+        <!-- ── CONTROLS: SEARCH + FILTERS ─────────────────────────── -->
         <div class="controls" role="search" aria-label="Filter martial arts">
             <div class="controls-inner">
+
+                <!-- Search -->
                 <div class="search-wrap">
                     <span class="search-icon" aria-hidden="true">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -39,8 +45,10 @@
                         aria-label="Search martial arts by name" autocomplete="off" />
                 </div>
 
+                <!-- Filters -->
                 <div class="filter-row">
                     <div class="filters">
+
                         <select id="filter-style" class="filter-select" aria-label="Filter by fighting style">
                             <option value="">Style: All</option>
                             <option value="Striking">Striking</option>
@@ -63,6 +71,7 @@
                             <option value="Fitness">Fitness</option>
                             <option value="Discipline">Discipline</option>
                         </select>
+
                     </div>
 
                     <button id="btn-clear" class="btn-clear" disabled aria-label="Clear all filters">
@@ -70,15 +79,19 @@
                     </button>
                 </div>
 
+                <!-- Result count -->
                 <p class="results-meta" id="results-meta" aria-live="polite" aria-atomic="true">
                     Showing <strong id="results-count">10</strong> results
                 </p>
+
             </div>
         </div>
 
+        <!-- ── CARD GRID ───────────────────────────────────────────── -->
         <section class="grid-section" aria-label="Martial arts results">
             <div class="grid-inner">
                 <div class="arts-grid" id="arts-grid" role="list">
+                    <!-- populated by JS -->
                 </div>
                 <div class="empty-state" id="empty-state" role="status" aria-live="polite">
                     <div class="empty-icon" aria-hidden="true">🥋</div>
@@ -88,13 +101,17 @@
                 </div>
             </div>
         </section>
+
     </main>
 
+    <!-- FOOTER -->
     <div id="footer-container"></div>
 
+    <!-- ── Scripts ─────────────────────────────────────────────── -->
     <script src="../js/data.js"></script>
     <script src="../js/layout.js"></script>
     <script src="../js/browse.js"></script>
+
 </body>
 
 </html>

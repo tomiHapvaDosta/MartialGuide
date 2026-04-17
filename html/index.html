@@ -8,25 +8,33 @@
     <meta name="description"
         content="Compare 10 martial arts by difficulty, equipment cost, injury risk and more. Find the perfect discipline for your goals." />
 
-    <link rel="stylesheet" href="../css/shared.css" />
-    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 
 <body>
 
+    <!-- NAVBAR (injected by layout.js) -->
     <div id="navbar-container"></div>
 
     <main>
+
+        <!-- ══════════════════════════════════════════════════════
+         1. HERO
+    ══════════════════════════════════════════════════════ -->
         <section class="hero" aria-label="Hero">
             <div class="hero-content">
                 <span class="hero-eyebrow">10 martial arts · honest ratings · free guide</span>
+
                 <h1>Find Your<br><em>Perfect</em><br>Martial Art</h1>
+
                 <p class="hero-subtitle">
                     Compare 10 disciplines — difficulty, equipment cost,
                     injury risk and more. Built for beginners who want real answers.
                 </p>
+
                 <div class="hero-actions">
                     <a href="browse.html" class="btn btn-dark">
+                        <!-- grid icon -->
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <rect x="3" y="3" width="7" height="7" />
@@ -37,6 +45,7 @@
                         Browse All Arts
                     </a>
                     <a href="quiz.html" class="btn btn-outline">
+                        <!-- sparkle icon -->
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
@@ -45,6 +54,8 @@
                     </a>
                 </div>
             </div>
+
+            <!-- Scroll hint -->
             <div class="hero-scroll-hint" aria-hidden="true">
                 <span>Scroll</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -54,6 +65,9 @@
             </div>
         </section>
 
+        <!-- ══════════════════════════════════════════════════════
+         2. FEATURED MARTIAL ARTS
+    ══════════════════════════════════════════════════════ -->
         <section class="featured" aria-labelledby="featured-title">
             <div class="featured-header">
                 <div>
@@ -68,20 +82,28 @@
                     </svg>
                 </a>
             </div>
+
             <div class="cards-track-wrap">
                 <div class="cards-track" id="featured-cards" role="list">
+                    <!-- JS populates this -->
                 </div>
             </div>
         </section>
 
+        <!-- ══════════════════════════════════════════════════════
+         3. WHY USE THIS GUIDE
+    ══════════════════════════════════════════════════════ -->
         <section class="why" aria-labelledby="why-title">
             <div class="section-header">
                 <p class="section-label">Why MartialGuide</p>
                 <h2 class="section-title" id="why-title">Everything You Need to Decide</h2>
             </div>
+
             <div class="why-grid">
+
                 <article class="why-card">
                     <div class="why-icon" aria-hidden="true">
+                        <!-- columns/compare icon -->
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" y1="3" x2="12" y2="21" />
@@ -95,8 +117,10 @@
                         injury risk, total equipment cost, and more in one clean table.
                     </p>
                 </article>
+
                 <article class="why-card">
                     <div class="why-icon" aria-hidden="true">
+                        <!-- target/match icon -->
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10" />
@@ -110,8 +134,10 @@
                         We'll rank all 10 arts and explain exactly why each one fits.
                     </p>
                 </article>
+
                 <article class="why-card">
                     <div class="why-icon" aria-hidden="true">
+                        <!-- bar chart icon -->
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <line x1="18" y1="20" x2="18" y2="10" />
@@ -127,9 +153,13 @@
                         you're actually signing up for.
                     </p>
                 </article>
+
             </div>
         </section>
 
+        <!-- ══════════════════════════════════════════════════════
+         4. QUIZ CTA BANNER
+    ══════════════════════════════════════════════════════ -->
         <section class="quiz-banner" aria-labelledby="quiz-banner-title">
             <div class="quiz-banner-inner">
                 <h2 id="quiz-banner-title">Not Sure Where to Start?</h2>
@@ -146,13 +176,17 @@
                 </a>
             </div>
         </section>
+
     </main>
 
+    <!-- FOOTER (injected by layout.js) -->
     <div id="footer-container"></div>
 
+    <!-- ── Scripts ──────────────────────────────────────────────── -->
     <script src="../js/data.js"></script>
     <script src="../js/layout.js"></script>
     <script src="../js/index.js"></script>
+
 </body>
 
 </html>
