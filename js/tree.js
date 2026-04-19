@@ -190,6 +190,7 @@ function toggleFilter(key, pill, color) {
     if (activeFilters.size === 0) activeFilters = null;
     syncURL();
     renderTree(true);
+    updateContextAndStats();
 }
 
 document.getElementById('btn-show-all').addEventListener('click', () => {
@@ -197,7 +198,172 @@ document.getElementById('btn-show-all').addEventListener('click', () => {
     renderFilterPills();
     syncURL();
     renderTree(true);
+    updateContextAndStats();
 });
+
+/* ════════════════════════════════════════════════════════════
+   FULLSCREEN TOGGLE
+════════════════════════════════════════════════════════════ */
+const fullscreenBtn = document.getElementById('btn-fullscreen');
+const canvasWrap = document.getElementById('canvas-wrap');
+const treePage = document.querySelector('.tree-page');
+
+function toggleFullscreen() {
+    const elem = treePage;
+
+    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement) {
+        // Enter fullscreen
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen().catch(err => console.log(`Fullscreen request failed: ${err.message}`));
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        }
+    } else {
+        // Exit fullscreen
+        if (document.exitFullscreen) {
+            document.exitFullscreen().catch(err => console.log(`Exit fullscreen failed: ${err.message}`));
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        }
+    }
+}
+
+// Update button state when fullscreen changes
+document.addEventListener('fullscreenchange', updateFullscreenState);
+document.addEventListener('webkitfullscreenchange', updateFullscreenState);
+document.addEventListener('mozfullscreenchange', updateFullscreenState);
+
+function updateFullscreenState() {
+    const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement;
+    if (isFullscreen) {
+        fullscreenBtn.classList.add('active');
+        fullscreenBtn.textContent = '⛶ Exit fullscreen';
+        // Trigger tree redraw to fit new dimensions
+        setTimeout(() => renderTree(true), 100);
+    } else {
+        fullscreenBtn.classList.remove('active');
+        fullscreenBtn.textContent = '⛶ Fullscreen';
+        // Trigger tree redraw to fit new dimensions
+        setTimeout(() => renderTree(true), 100);
+    }
+}
+
+fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+// Also handle ESC key to update button state
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        setTimeout(updateFullscreenState, 100);
+    }
+});
+
+/* ════════════════════════════════════════════════════════════
+   SEARCH FUNCTIONALITY
+════════════════════════════════════════════════════════════ */
+const searchInput = document.getElementById('search-input');
+let searchResults = [];
+let searchIndex = -1;
+
+searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+
+    if (query === '') {
+        searchResults = [];
+        searchIndex = -1;
+        renderTree(true);
+        return;
+    }
+
+    // Search through all martial arts
+    searchResults = MARTIAL_ARTS.filter(art =>
+        art.name.toLowerCase().includes(query) ||
+        art.style.toLowerCase().includes(query) ||
+        art.origin.toLowerCase().includes(query) ||
+        art.bestFor[0].toLowerCase().includes(query)
+    );
+
+    searchIndex = 0;
+    if (searchResults.length > 0) {
+        highlightSearchResult();
+    }
+});
+
+function highlightSearchResult() {
+    if (searchResults.length === 0) return;
+    const art = searchResults[searchIndex];
+    const artNode = currentRoot?.descendants().find(d => d.data.artId === art.id);
+    if (artNode) {
+        highlightArt(artNode, gMain?.selectAll('.node-g'));
+        openDetail(art);
+    }
+}
+
+searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && searchResults.length > 0) {
+        searchIndex = (searchIndex + 1) % searchResults.length;
+        highlightSearchResult();
+    }
+});
+
+/* ════════════════════════════════════════════════════════════
+   RESET VIEW
+════════════════════════════════════════════════════════════ */
+document.getElementById('btn-reset-view').addEventListener('click', () => {
+    panX = 0;
+    panY = 0;
+    searchInput.value = '';
+    searchResults = [];
+    renderTree(true);
+});
+
+/* ════════════════════════════════════════════════════════════
+   CONTEXT & STATS
+════════════════════════════════════════════════════════════ */
+function updateContextAndStats() {
+    const contextEl = document.getElementById('context-breadcrumb');
+    const statsEl = document.getElementById('filter-stats');
+    const grouping = GROUPINGS[activeGroup];
+
+    // Build context
+    let contextHTML = '';
+    if (activeFilters) {
+        const activeFiltersArray = Array.from(activeFilters)
+            .map(f => {
+                const label = Object.keys(grouping.colors)
+                    .find(k => k.toLowerCase().replace(/\\s+/g, '-') === f);
+                return label || f;
+            });
+        contextHTML = `<span class="context-label">Grouped by:</span> ${grouping.label} | <span class="context-label">Showing:</span> ${activeFiltersArray.join(', ')}`;
+        contextEl.innerHTML = contextHTML;
+        contextEl.classList.add('active');
+    } else {
+        contextHTML = `<span class="context-label">Grouped by:</span> ${grouping.label} | <span class="context-label">Showing:</span> All`;
+        contextEl.innerHTML = contextHTML;
+        contextEl.classList.add('active');
+    }
+
+    // Calculate stats
+    const data = buildTreeData();
+    const visibleArts = data.children
+        .filter(cat => !activeFilters || activeFilters.has(cat.name.toLowerCase().replace(/\\s+/g, '-')))
+        .reduce((arr, cat) => arr.concat(cat.children), []);
+
+    const totalArts = MARTIAL_ARTS.length;
+    const avgDifficulty = visibleArts.length > 0
+        ? (visibleArts.reduce((sum, a) => sum + a.art.difficulty, 0) / visibleArts.length).toFixed(1)
+        : 0;
+    const avgCost = visibleArts.length > 0
+        ? (visibleArts.reduce((sum, a) => sum + artCost(a.art), 0) / visibleArts.length).toFixed(0)
+        : 0;
+
+    const statsHTML = `<strong>${visibleArts.length} of ${totalArts}</strong> arts shown | Avg Difficulty: ${avgDifficulty}/10 | Avg Cost: $${avgCost}`;
+    statsEl.innerHTML = statsHTML;
+    statsEl.classList.add('active');
+}
 
 /* ════════════════════════════════════════════════════════════
    GROUP BY CONTROLS
@@ -214,6 +380,7 @@ document.querySelectorAll('.group-btn').forEach(btn => {
         renderFilterPills();
         syncURL();
         renderTree(true);
+        updateContextAndStats();
     });
 });
 // Set initial active button
@@ -221,6 +388,9 @@ document.querySelector(`[data-group="${activeGroup}"]`)?.classList.add('active')
 document.querySelectorAll('.group-btn').forEach(b => {
     if (b.dataset.group !== activeGroup) b.classList.remove('active');
 });
+
+// Initialize context and stats on page load
+updateContextAndStats();
 
 /* ════════════════════════════════════════════════════════════
    D3 RADIAL TREE
@@ -507,6 +677,9 @@ function renderTree(animate) {
         const target = visibleNodes.find(d => d.data.artId === selectedArtId);
         if (target) highlightArt(target, nodeGroup);
     }
+
+    // Update context and stats display
+    updateContextAndStats();
 }
 
 /* ── HIGHLIGHT HELPERS ───────────────────────────────────── */

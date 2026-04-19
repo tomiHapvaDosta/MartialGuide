@@ -31,6 +31,15 @@
     <!-- CONTROLS BAR -->
     <div class="controls-bar">
         <div class="controls-bar-inner">
+            <!-- Search Row -->
+            <div class="controls-row">
+                <input type="text" id="search-input" class="search-input" placeholder="Search martial art..."
+                    aria-label="Search martial arts">
+                <button class="btn-reset-view" id="btn-reset-view" title="Reset view">↺ Reset View</button>
+            </div>
+            <!-- Context/Breadcrumb -->
+            <div class="context-breadcrumb" id="context-breadcrumb"></div>
+            <!-- Group Row -->
             <div class="controls-row">
                 <span class="controls-label">Group by:</span>
                 <button class="group-btn active" data-group="style">Style</button>
@@ -38,12 +47,16 @@
                 <button class="group-btn" data-group="origin">Origin</button>
                 <button class="group-btn" data-group="difficulty">Difficulty</button>
                 <button class="group-btn" data-group="cost">Equipment Cost</button>
+                <button class="btn-fullscreen" id="btn-fullscreen" title="Toggle fullscreen">⛶ Fullscreen</button>
             </div>
+            <!-- Filter Row -->
             <div class="controls-row" id="filter-row">
                 <span class="controls-label">Show only:</span>
                 <div id="filter-pills" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
                 <button class="btn-show-all" id="btn-show-all">Show all</button>
             </div>
+            <!-- Filter Stats -->
+            <div class="filter-stats" id="filter-stats"></div>
         </div>
     </div>
 
@@ -52,28 +65,28 @@
         <div class="tree-canvas-wrap" id="canvas-wrap">
             <svg id="tree-svg"></svg>
         </div>
-    </div>
 
-    <!-- DETAIL PANEL -->
-    <aside class="detail-panel" id="detail-panel" aria-label="Martial art details" aria-hidden="true">
-        <div class="detail-img" id="detail-img">
-            <span class="detail-img-initials" id="detail-initials"></span>
-            <button class="detail-close" id="detail-close" aria-label="Close detail panel">✕</button>
-        </div>
-        <div class="detail-body">
-            <div>
-                <div class="detail-name" id="detail-name"></div>
-                <div class="detail-meta">
-                    <span class="style-badge" id="detail-badge"></span>
-                    <span class="detail-origin" id="detail-origin"></span>
-                </div>
+        <!-- DETAIL PANEL -->
+        <aside class="detail-panel" id="detail-panel" aria-label="Martial art details" aria-hidden="true">
+            <div class="detail-img" id="detail-img">
+                <span class="detail-img-initials" id="detail-initials"></span>
+                <button class="detail-close" id="detail-close" aria-label="Close detail panel">✕</button>
             </div>
-            <div class="detail-stats" id="detail-stats"></div>
-            <div class="detail-cost" id="detail-cost"></div>
-            <div class="detail-pills" id="detail-pills"></div>
-            <div class="detail-actions" id="detail-actions"></div>
-        </div>
-    </aside>
+            <div class="detail-body">
+                <div>
+                    <div class="detail-name" id="detail-name"></div>
+                    <div class="detail-meta">
+                        <span class="style-badge" id="detail-badge"></span>
+                        <span class="detail-origin" id="detail-origin"></span>
+                    </div>
+                </div>
+                <div class="detail-stats" id="detail-stats"></div>
+                <div class="detail-cost" id="detail-cost"></div>
+                <div class="detail-pills" id="detail-pills"></div>
+                <div class="detail-actions" id="detail-actions"></div>
+            </div>
+        </aside>
+    </div>
 
     <!-- TOOLTIP -->
     <div class="tree-tooltip" id="tree-tooltip"></div>

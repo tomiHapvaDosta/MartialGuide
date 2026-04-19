@@ -145,6 +145,110 @@
     color: #1a1a1a;
 }
 
+/* Fullscreen button */
+.btn-fullscreen {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 7px;
+    border: 1.5px solid #e4e4e4;
+    background: #fff;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.18s;
+    margin-left: auto;
+}
+
+.btn-fullscreen:hover {
+    border-color: #bbb;
+    color: #444;
+}
+
+.btn-fullscreen.active {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: #fff;
+}
+
+/* Search input */
+.search-input {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 7px;
+    border: 1.5px solid #e4e4e4;
+    background: #fff;
+    color: #333;
+    flex: 1;
+    max-width: 250px;
+    transition: all 0.18s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #1a1a1a;
+    box-shadow: 0 0 0 2px rgba(26, 26, 26, 0.1);
+}
+
+.search-input::placeholder {
+    color: #aaa;
+}
+
+/* Reset View button */
+.btn-reset-view {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 7px;
+    border: 1.5px solid #e4e4e4;
+    background: #fff;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.18s;
+}
+
+.btn-reset-view:hover {
+    border-color: #bbb;
+    color: #444;
+}
+
+/* Context/Breadcrumb */
+.context-breadcrumb {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    padding: 4px 0;
+    line-height: 1.4;
+    display: none;
+}
+
+.context-breadcrumb.active {
+    display: block;
+}
+
+.context-breadcrumb .context-label {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* Filter Stats */
+.filter-stats {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: #888;
+    padding: 4px 0;
+    display: none;
+}
+
+.filter-stats.active {
+    display: block;
+}
+
+/* Fullscreen element styles */
+/* (tree-page is now the fullscreen element, not tree-canvas-wrap) */
+
 /* ── MAIN LAYOUT ─────────────────────────────────────────── */
 .tree-page {
     max-width: 1400px;
@@ -153,6 +257,28 @@
     display: grid;
     grid-template-columns: 1fr;
     position: relative;
+    height: auto;
+}
+
+.tree-page:fullscreen {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.tree-page:-webkit-full-screen {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.tree-page:-moz-full-screen {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
 }
 
 /* ── SVG CANVAS ──────────────────────────────────────────── */
@@ -203,9 +329,21 @@
     overflow-y: auto;
     transform: translateX(100%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 200;
-    display: flex;
+    z-index: 999999;
+    display: none;
     flex-direction: column;
+}
+
+.detail-panel.open {
+    display: flex;
+}
+
+.tree-page:fullscreen .detail-panel,
+.tree-page:-webkit-full-screen .detail-panel,
+.tree-page:-moz-full-screen .detail-panel {
+    position: absolute;
+    top: 0;
+    height: 100%;
 }
 
 .detail-panel.open {
