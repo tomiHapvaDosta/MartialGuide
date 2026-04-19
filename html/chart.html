@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual Comparison — MartialGuide</title>
+    <meta name="description"
+        content="Visually compare all martial arts across difficulty, injury risk, fitness required, and equipment cost on an interactive radar chart." />
+
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+    <link rel="stylesheet" href="../css/chart.css">
+
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <header class="page-header">
+        <div class="page-header-inner">
+            <p class="page-header-label">Tools</p>
+            <h1>Visual Comparison</h1>
+            <p>See how all martial arts stack up at a glance. Toggle arts and axes to build your own view.</p>
+        </div>
+    </header>
+
+    <div class="chart-page">
+
+        <!-- ── LEFT: CONTROLS ──────────────────────────────────── -->
+        <aside class="controls-panel" aria-label="Chart controls">
+
+            <!-- Art selector -->
+            <div class="control-block">
+                <p class="control-block-title">Select Martial Arts</p>
+                <div class="art-pills" id="art-pills"></div>
+                <div class="pill-actions">
+                    <button class="btn-pill-action" id="btn-select-all">Select all</button>
+                    <button class="btn-pill-action" id="btn-clear-all">Clear all</button>
+                </div>
+            </div>
+
+            <!-- Axis selector -->
+            <div class="control-block">
+                <p class="control-block-title">Choose Axes</p>
+                <div class="axis-pills" id="axis-pills"></div>
+                <div class="axis-warning" id="axis-warning" role="alert">
+                    A radar chart needs at least 3 axes.
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- ── RIGHT: CHART ─────────────────────────────────────── -->
+        <section class="chart-panel" aria-label="Radar chart">
+            <div class="chart-panel-top">
+                <div>
+                    <div class="chart-panel-title">Radar Comparison</div>
+                    <div class="chart-panel-subtitle" id="chart-subtitle">All arts · All axes</div>
+                </div>
+                <button class="btn-download" id="btn-download" aria-label="Download chart as PNG">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download PNG
+                </button>
+            </div>
+
+            <div class="chart-canvas-wrap" id="chart-wrap">
+                <canvas id="radar-chart" aria-label="Radar chart comparing martial arts"></canvas>
+            </div>
+
+            <div class="chart-empty" id="chart-empty">
+                <div class="chart-empty-icon" aria-hidden="true">📊</div>
+                <p>Select at least one martial art and three axes to display the chart.</p>
+            </div>
+
+        </section>
+
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/chart.js"></script>
+
+</body>
+
+</html>

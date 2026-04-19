@@ -315,23 +315,23 @@ const LAYOUT_STYLES = `
  * Uses a flag so multiple calls don't duplicate the tag.
  */
 function _injectLayoutStyles() {
-    if (document.getElementById('mg-layout-styles')) return;
-    const style = document.createElement('style');
-    style.id = 'mg-layout-styles';
-    style.textContent = LAYOUT_STYLES;
-    document.head.insertBefore(style, document.head.firstChild);
+  if (document.getElementById('mg-layout-styles')) return;
+  const style = document.createElement('style');
+  style.id = 'mg-layout-styles';
+  style.textContent = LAYOUT_STYLES;
+  document.head.insertBefore(style, document.head.firstChild);
 }
 
 /**
  * Inject Google Fonts (DM Sans + Bebas Neue) once.
  */
 function _injectFonts() {
-    if (document.getElementById('mg-fonts')) return;
-    const link = document.createElement('link');
-    link.id = 'mg-fonts';
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap';
-    document.head.appendChild(link);
+  if (document.getElementById('mg-fonts')) return;
+  const link = document.createElement('link');
+  link.id = 'mg-fonts';
+  link.rel = 'stylesheet';
+  link.href = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap';
+  document.head.appendChild(link);
 }
 
 /**
@@ -343,13 +343,13 @@ function _injectFonts() {
  * @returns {boolean}
  */
 function _isActivePage(href) {
-    const path = window.location.pathname;
+  const path = window.location.pathname;
 
-    // Normalise: strip leading path segments, keep filename
-    const currentFile = path.split('/').pop() || 'index.html';
-    const linkFile = href.split('/').pop() || 'index.html';
+  // Normalise: strip leading path segments, keep filename
+  const currentFile = path.split('/').pop() || 'index.html';
+  const linkFile = href.split('/').pop() || 'index.html';
 
-    return currentFile === linkFile;
+  return currentFile === linkFile;
 }
 
 /**
@@ -361,12 +361,12 @@ function _isActivePage(href) {
  * @returns {HTMLAnchorElement}
  */
 function _navLink(href, label, extraClass = '') {
-    const a = document.createElement('a');
-    a.href = href;
-    a.textContent = label;
-    if (extraClass) a.className = extraClass;
-    if (_isActivePage(href)) a.classList.add('mg-active');
-    return a;
+  const a = document.createElement('a');
+  a.href = href;
+  a.textContent = label;
+  if (extraClass) a.className = extraClass;
+  if (_isActivePage(href)) a.classList.add('mg-active');
+  return a;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -380,104 +380,105 @@ function _navLink(href, label, extraClass = '') {
  * @param {HTMLElement} containerEl
  */
 function injectNavbar(containerEl) {
-    _injectFonts();
-    _injectLayoutStyles();
+  _injectFonts();
+  _injectLayoutStyles();
 
-    /* ── Nav links data ── */
-    const links = [
-        { href: 'browse.html', label: 'Browse' },
-        { href: 'compare.html', label: 'Compare' },
-        { href: 'quiz.html', label: 'Quiz' },
-    ];
+  /* ── Nav links data ── */
+  const links = [
+    { href: 'browse.html', label: 'Browse' },
+    { href: 'compare.html', label: 'Compare' },
+    { href: 'chart.html', label: 'Chart' },
+    { href: 'quiz.html', label: 'Quiz' },
+  ];
 
-    /* ── Build navbar element ── */
-    const nav = document.createElement('nav');
-    nav.id = 'mg-navbar';
-    nav.setAttribute('role', 'navigation');
-    nav.setAttribute('aria-label', 'Main navigation');
+  /* ── Build navbar element ── */
+  const nav = document.createElement('nav');
+  nav.id = 'mg-navbar';
+  nav.setAttribute('role', 'navigation');
+  nav.setAttribute('aria-label', 'Main navigation');
 
-    const inner = document.createElement('div');
-    inner.className = 'mg-nav-inner';
+  const inner = document.createElement('div');
+  inner.className = 'mg-nav-inner';
 
-    /* Logo */
-    const logo = document.createElement('a');
-    logo.href = 'index.html';
-    logo.className = 'mg-logo';
-    logo.textContent = 'MartialGuide';
-    logo.setAttribute('aria-label', 'MartialGuide — home');
+  /* Logo */
+  const logo = document.createElement('a');
+  logo.href = 'index.html';
+  logo.className = 'mg-logo';
+  logo.textContent = 'MartialGuide';
+  logo.setAttribute('aria-label', 'MartialGuide — home');
 
-    /* Desktop link list */
-    const ul = document.createElement('ul');
-    ul.className = 'mg-nav-links';
-    ul.setAttribute('role', 'list');
+  /* Desktop link list */
+  const ul = document.createElement('ul');
+  ul.className = 'mg-nav-links';
+  ul.setAttribute('role', 'list');
 
-    links.forEach(({ href, label }) => {
-        const li = document.createElement('li');
-        li.appendChild(_navLink(href, label));
-        ul.appendChild(li);
-    });
+  links.forEach(({ href, label }) => {
+    const li = document.createElement('li');
+    li.appendChild(_navLink(href, label));
+    ul.appendChild(li);
+  });
 
-    /* CTA button (desktop) */
-    const ctaLi = document.createElement('li');
-    ctaLi.appendChild(_navLink('quiz.html', 'Take the Quiz', 'mg-nav-cta'));
-    ul.appendChild(ctaLi);
+  /* CTA button (desktop) */
+  const ctaLi = document.createElement('li');
+  ctaLi.appendChild(_navLink('quiz.html', 'Take the Quiz', 'mg-nav-cta'));
+  ul.appendChild(ctaLi);
 
-    /* Hamburger button */
-    const burger = document.createElement('button');
-    burger.className = 'mg-hamburger';
-    burger.setAttribute('aria-label', 'Toggle navigation menu');
-    burger.setAttribute('aria-expanded', 'false');
-    burger.innerHTML = '<span></span><span></span><span></span>';
+  /* Hamburger button */
+  const burger = document.createElement('button');
+  burger.className = 'mg-hamburger';
+  burger.setAttribute('aria-label', 'Toggle navigation menu');
+  burger.setAttribute('aria-expanded', 'false');
+  burger.innerHTML = '<span></span><span></span><span></span>';
 
-    inner.appendChild(logo);
-    inner.appendChild(ul);
-    inner.appendChild(burger);
-    nav.appendChild(inner);
+  inner.appendChild(logo);
+  inner.appendChild(ul);
+  inner.appendChild(burger);
+  nav.appendChild(inner);
 
-    /* ── Mobile drawer (sibling to nav, not inside) ── */
-    const drawer = document.createElement('div');
-    drawer.className = 'mg-mobile-menu';
-    drawer.setAttribute('aria-hidden', 'true');
-    drawer.id = 'mg-mobile-menu';
+  /* ── Mobile drawer (sibling to nav, not inside) ── */
+  const drawer = document.createElement('div');
+  drawer.className = 'mg-mobile-menu';
+  drawer.setAttribute('aria-hidden', 'true');
+  drawer.id = 'mg-mobile-menu';
 
-    links.forEach(({ href, label }) => {
-        drawer.appendChild(_navLink(href, label));
-    });
-    drawer.appendChild(_navLink('quiz.html', 'Take the Quiz', 'mg-nav-cta'));
+  links.forEach(({ href, label }) => {
+    drawer.appendChild(_navLink(href, label));
+  });
+  drawer.appendChild(_navLink('quiz.html', 'Take the Quiz', 'mg-nav-cta'));
 
-    /* ── Wire hamburger toggle ── */
-    burger.addEventListener('click', () => {
-        const isOpen = drawer.classList.toggle('mg-open');
-        burger.classList.toggle('mg-open', isOpen);
-        burger.setAttribute('aria-expanded', String(isOpen));
-        drawer.setAttribute('aria-hidden', String(!isOpen));
-    });
+  /* ── Wire hamburger toggle ── */
+  burger.addEventListener('click', () => {
+    const isOpen = drawer.classList.toggle('mg-open');
+    burger.classList.toggle('mg-open', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+    drawer.setAttribute('aria-hidden', String(!isOpen));
+  });
 
-    /* Close drawer when a link inside it is clicked */
-    drawer.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A') {
-            drawer.classList.remove('mg-open');
-            burger.classList.remove('mg-open');
-            burger.setAttribute('aria-expanded', 'false');
-            drawer.setAttribute('aria-hidden', 'true');
-        }
-    });
+  /* Close drawer when a link inside it is clicked */
+  drawer.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') {
+      drawer.classList.remove('mg-open');
+      burger.classList.remove('mg-open');
+      burger.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('aria-hidden', 'true');
+    }
+  });
 
-    /* Close drawer on outside click */
-    document.addEventListener('click', (e) => {
-        if (!nav.contains(e.target) && !drawer.contains(e.target)) {
-            drawer.classList.remove('mg-open');
-            burger.classList.remove('mg-open');
-            burger.setAttribute('aria-expanded', 'false');
-            drawer.setAttribute('aria-hidden', 'true');
-        }
-    });
+  /* Close drawer on outside click */
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('mg-open');
+      burger.classList.remove('mg-open');
+      burger.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('aria-hidden', 'true');
+    }
+  });
 
-    /* ── Mount ── */
-    containerEl.appendChild(nav);
+  /* ── Mount ── */
+  containerEl.appendChild(nav);
 
-    // Insert drawer immediately after the container so it sits below the navbar
-    containerEl.insertAdjacentElement('afterend', drawer);
+  // Insert drawer immediately after the container so it sits below the navbar
+  containerEl.insertAdjacentElement('afterend', drawer);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -490,69 +491,70 @@ function injectNavbar(containerEl) {
  * @param {HTMLElement} containerEl
  */
 function injectFooter(containerEl) {
-    _injectFonts();
-    _injectLayoutStyles();
+  _injectFonts();
+  _injectLayoutStyles();
 
-    const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
 
-    const footer = document.createElement('footer');
-    footer.id = 'mg-footer';
-    footer.setAttribute('role', 'contentinfo');
+  const footer = document.createElement('footer');
+  footer.id = 'mg-footer';
+  footer.setAttribute('role', 'contentinfo');
 
-    /* ── Inner grid ── */
-    const inner = document.createElement('div');
-    inner.className = 'mg-footer-inner';
+  /* ── Inner grid ── */
+  const inner = document.createElement('div');
+  inner.className = 'mg-footer-inner';
 
-    /* Left: brand block */
-    const brand = document.createElement('div');
-    brand.className = 'mg-footer-brand';
+  /* Left: brand block */
+  const brand = document.createElement('div');
+  brand.className = 'mg-footer-brand';
 
-    const brandLogo = document.createElement('a');
-    brandLogo.href = 'index.html';
-    brandLogo.className = 'mg-footer-logo';
-    brandLogo.textContent = 'MartialGuide';
+  const brandLogo = document.createElement('a');
+  brandLogo.href = 'index.html';
+  brandLogo.className = 'mg-footer-logo';
+  brandLogo.textContent = 'MartialGuide';
 
-    const brandTagline = document.createElement('p');
-    brandTagline.textContent =
-        'An independent guide helping beginners find their perfect martial art.';
+  const brandTagline = document.createElement('p');
+  brandTagline.textContent =
+    'An independent guide helping beginners find their perfect martial art.';
 
-    brand.appendChild(brandLogo);
-    brand.appendChild(brandTagline);
+  brand.appendChild(brandLogo);
+  brand.appendChild(brandTagline);
 
-    /* Right: nav links */
-    const navLinks = [
-        { href: 'browse.html', label: 'Browse' },
-        { href: 'compare.html', label: 'Compare' },
-        { href: 'quiz.html', label: 'Quiz' },
-    ];
+  /* Right: nav links */
+  const navLinks = [
+    { href: 'browse.html', label: 'Browse' },
+    { href: 'compare.html', label: 'Compare' },
+    { href: 'chart.html', label: 'Chart' },
+    { href: 'quiz.html', label: 'Quiz' },
+  ];
 
-    const navUl = document.createElement('ul');
-    navUl.className = 'mg-footer-nav';
-    navUl.setAttribute('role', 'list');
+  const navUl = document.createElement('ul');
+  navUl.className = 'mg-footer-nav';
+  navUl.setAttribute('role', 'list');
 
-    navLinks.forEach(({ href, label }) => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = href;
-        a.textContent = label;
-        li.appendChild(a);
-        navUl.appendChild(li);
-    });
+  navLinks.forEach(({ href, label }) => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = href;
+    a.textContent = label;
+    li.appendChild(a);
+    navUl.appendChild(li);
+  });
 
-    inner.appendChild(brand);
-    inner.appendChild(navUl);
+  inner.appendChild(brand);
+  inner.appendChild(navUl);
 
-    /* ── Bottom bar ── */
-    const bottom = document.createElement('div');
-    bottom.className = 'mg-footer-bottom';
+  /* ── Bottom bar ── */
+  const bottom = document.createElement('div');
+  bottom.className = 'mg-footer-bottom';
 
-    const copy = document.createElement('p');
-    copy.innerHTML = `&copy; ${currentYear} MartialGuide. Built for beginners, by enthusiasts.`;
+  const copy = document.createElement('p');
+  copy.innerHTML = `&copy; ${currentYear} MartialGuide. Built for beginners, by enthusiasts.`;
 
-    bottom.appendChild(copy);
+  bottom.appendChild(copy);
 
-    footer.appendChild(inner);
-    footer.appendChild(bottom);
+  footer.appendChild(inner);
+  footer.appendChild(bottom);
 
-    containerEl.appendChild(footer);
+  containerEl.appendChild(footer);
 }
