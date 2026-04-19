@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Martial Arts Tree — MartialGuide</title>
+    <meta name="description"
+        content="Explore all martial arts visually as an interactive radial tree. Group by style, difficulty, cost, and more." />
+
+    <!-- D3.js v7 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+
+    <link rel="stylesheet" href="../css/tree.css">
+
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <div class="page-header-inner">
+            <p class="page-header-label">Explore</p>
+            <h1>Martial Arts Tree</h1>
+            <p>Explore all arts visually. Group, filter, and click any node to dive deeper.</p>
+        </div>
+    </header>
+
+    <!-- CONTROLS BAR -->
+    <div class="controls-bar">
+        <div class="controls-bar-inner">
+            <div class="controls-row">
+                <span class="controls-label">Group by:</span>
+                <button class="group-btn active" data-group="style">Style</button>
+                <button class="group-btn" data-group="bestFor">Best For</button>
+                <button class="group-btn" data-group="origin">Origin</button>
+                <button class="group-btn" data-group="difficulty">Difficulty</button>
+                <button class="group-btn" data-group="cost">Equipment Cost</button>
+            </div>
+            <div class="controls-row" id="filter-row">
+                <span class="controls-label">Show only:</span>
+                <div id="filter-pills" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+                <button class="btn-show-all" id="btn-show-all">Show all</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TREE + DETAIL -->
+    <div class="tree-page">
+        <div class="tree-canvas-wrap" id="canvas-wrap">
+            <svg id="tree-svg"></svg>
+        </div>
+    </div>
+
+    <!-- DETAIL PANEL -->
+    <aside class="detail-panel" id="detail-panel" aria-label="Martial art details" aria-hidden="true">
+        <div class="detail-img" id="detail-img">
+            <span class="detail-img-initials" id="detail-initials"></span>
+            <button class="detail-close" id="detail-close" aria-label="Close detail panel">✕</button>
+        </div>
+        <div class="detail-body">
+            <div>
+                <div class="detail-name" id="detail-name"></div>
+                <div class="detail-meta">
+                    <span class="style-badge" id="detail-badge"></span>
+                    <span class="detail-origin" id="detail-origin"></span>
+                </div>
+            </div>
+            <div class="detail-stats" id="detail-stats"></div>
+            <div class="detail-cost" id="detail-cost"></div>
+            <div class="detail-pills" id="detail-pills"></div>
+            <div class="detail-actions" id="detail-actions"></div>
+        </div>
+    </aside>
+
+    <!-- TOOLTIP -->
+    <div class="tree-tooltip" id="tree-tooltip"></div>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/tree.js"></script>
+
+
+
+</body>
+
+</html>
