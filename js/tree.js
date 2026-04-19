@@ -246,6 +246,21 @@ function renderTree(animate) {
 
     svg.attr('width', width).attr('height', height);
 
+    // Add filter definitions for shadows
+    let defs = svg.select('defs');
+    if (defs.empty()) {
+        defs = svg.append('defs');
+    }
+    if (defs.select('filter#shadow').empty()) {
+        const filter = defs.append('filter').attr('id', 'shadow')
+            .attr('x', '-50%').attr('y', '-50%')
+            .attr('width', '200%').attr('height', '200%');
+        filter.append('feDropShadow')
+            .attr('dx', 0).attr('dy', 1)
+            .attr('stdDeviation', 1.5)
+            .attr('flood-opacity', 0.25);
+    }
+
     // Remove old group, create fresh
     svg.selectAll('g.main-g').remove();
     gMain = svg.append('g')
@@ -372,48 +387,50 @@ function renderTree(animate) {
         if (d.depth === 0) {
             // ROOT
             g.append('circle')
-                .attr('r', 26)
+                .attr('r', 32)
                 .attr('fill', '#1a1a1a')
                 .attr('stroke', '#fff')
-                .attr('stroke-width', 3);
+                .attr('stroke-width', 3.5)
+                .attr('filter', 'url(#shadow)');
             g.append('text')
                 .attr('text-anchor', 'middle')
                 .attr('dominant-baseline', 'middle')
                 .attr('fill', '#fff')
                 .attr('font-family', "'Bebas Neue', sans-serif")
-                .attr('font-size', '11px')
+                .attr('font-size', '13px')
                 .attr('letter-spacing', '0.08em')
                 .text('MARTIALGUIDE');
 
         } else if (d.depth === 1) {
             // CATEGORY
             const childCount = d.children?.length || 0;
-            const r = 16 + childCount * 1.5;
+            const r = 20 + childCount * 1.5;
             const col = d.data.color || '#999';
 
             g.append('circle')
                 .attr('r', r)
                 .attr('fill', col)
-                .attr('fill-opacity', 0.15)
+                .attr('fill-opacity', 0.45)
                 .attr('stroke', col)
-                .attr('stroke-width', 2);
+                .attr('stroke-width', 2.5)
+                .attr('filter', 'url(#shadow)');
 
             // Label — always horizontal at top (counter-rotate)
             const angle = d.x * 180 / Math.PI - 90;
             g.append('text')
-                .attr('transform', `rotate(${-angle}) translate(0, -${18})`)  // 18 is ~radius of category circles
+                .attr('transform', `rotate(${-angle}) translate(0, -${22})`)
                 .attr('text-anchor', 'middle')
                 .attr('dominant-baseline', 'middle')
                 .attr('fill', col)
                 .attr('font-family', "'DM Sans', sans-serif")
-                .attr('font-size', '14px')
+                .attr('font-size', '16px')
                 .attr('font-weight', '700')
                 .attr('letter-spacing', '0.05em')
                 .text(d.data.name.toUpperCase());
 
         } else {
             // ART (leaf)
-            const r = 18;
+            const r = 24;
             const col = d.data.color || '#999';
             const uid = 'clip-' + (d.data.artId || d.data.name).replace(/[^a-z0-9]/gi, '');
 
@@ -426,10 +443,11 @@ function renderTree(animate) {
             g.append('circle')
                 .attr('r', r)
                 .attr('fill', col)
-                .attr('fill-opacity', 0.18)
+                .attr('fill-opacity', 0.5)
                 .attr('stroke', col)
-                .attr('stroke-width', 2)
-                .attr('class', 'art-ring');
+                .attr('stroke-width', 2.5)
+                .attr('class', 'art-ring')
+                .attr('filter', 'url(#shadow)');
 
             // Initials fallback (always shown; image drawn on top)
             const angle = d.x * 180 / Math.PI - 90;
@@ -440,12 +458,13 @@ function renderTree(animate) {
                 .attr('dominant-baseline', 'middle')
                 .attr('fill', col)
                 .attr('font-family', "'Bebas Neue', sans-serif")
-                .attr('font-size', '13px')
+                .attr('font-size', '15px')
                 .attr('letter-spacing', '0.06em')
+                .attr('font-weight', '700')
                 .text(initials(d.data.name));
 
             // Art name label (horizontal, above circle)
-            const labelR = r + 6;
+            const labelR = r + 8;
             g.append('text')
                 .attr('class', 'art-label')
                 .attr('transform', `rotate(${-angle}) translate(0, -${labelR})`)
@@ -453,8 +472,8 @@ function renderTree(animate) {
                 .attr('dominant-baseline', 'middle')
                 .attr('fill', '#333')
                 .attr('font-family', "'DM Sans', sans-serif")
-                .attr('font-size', '13px')
-                .attr('font-weight', '600')
+                .attr('font-size', '15px')
+                .attr('font-weight', '700')
                 .text(d.data.name);
         }
     });
