@@ -1,3 +1,51 @@
+/* ── THEME VARIABLES ─────────────────────────────────────── */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9f9f9;
+    --bg-tertiary: #f0f0f0;
+    --border-color: #e0e0e0;
+    --text-primary: #222222;
+    --text-secondary: #666666;
+    --text-muted: #aaaaaa;
+    --accent: #222222;
+    --accent-text: #ffffff;
+    --navbar-bg: #ffffff;
+    --navbar-border: #e0e0e0;
+    --footer-bg: #f5f5f5;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --bar-bg: #e0e0e0;
+    --bar-blue: #3b82f6;
+    --bar-red: #ef4444;
+    --bar-green: #22c55e;
+}
+
+html.dark {
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #242424;
+    --border-color: #2e2e2e;
+    --text-primary: #f0f0f0;
+    --text-secondary: #aaaaaa;
+    --text-muted: #666666;
+    --accent: #f0f0f0;
+    --accent-text: #0f0f0f;
+    --navbar-bg: #0f0f0f;
+    --navbar-border: #2e2e2e;
+    --footer-bg: #0f0f0f;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --bar-bg: #2e2e2e;
+    --bar-blue: #60a5fa;
+    --bar-red: #f87171;
+    --bar-green: #4ade80;
+}
+
+/* Global transition for theme switching */
+*,
+*::before,
+*::after {
+    transition: background-color 350ms ease, color 350ms ease, border-color 350ms ease;
+}
+
 *::before,
 *::after {
     box-sizing: border-box;
@@ -20,7 +68,7 @@
 /* ── BREADCRUMB ─────────────────────────────────────────── */
 .breadcrumb {
     padding: 16px 24px;
-    background: #fff;
+    background: var(--bg-primary);
     border-bottom: 1px solid #eeeeee;
 }
 
@@ -31,18 +79,18 @@
     align-items: center;
     gap: 8px;
     font-size: 0.82rem;
-    color: #aaa;
+    color: var(--text-muted);
     flex-wrap: wrap;
 }
 
 .breadcrumb a {
-    color: #aaa;
+    color: var(--text-muted);
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .breadcrumb a:hover {
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 .breadcrumb-sep {
@@ -50,7 +98,7 @@
 }
 
 .breadcrumb-current {
-    color: #555;
+    color: var(--text-secondary);
     font-weight: 500;
 }
 
@@ -59,7 +107,7 @@
     position: relative;
     width: 100%;
     height: clamp(280px, 45vw, 460px);
-    background: #1a1a1a;
+    background: var(--accent);
     overflow: hidden;
 }
 
@@ -165,7 +213,7 @@
 .art-hero h1 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.6rem, 7vw, 5rem);
-    color: #fff;
+    color: var(--accent-text);
     letter-spacing: 0.03em;
     line-height: 1;
 }
@@ -180,7 +228,7 @@
 
 /* ── QUICK STATS ────────────────────────────────────────── */
 .quick-stats {
-    background: #fff;
+    background: var(--bg-primary);
     border-bottom: 1px solid #eeeeee;
     padding: 28px 32px;
 }
@@ -204,7 +252,7 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #999;
+    color: var(--text-muted);
 }
 
 .stat-block-bar-row {
@@ -216,7 +264,7 @@
 .stat-bar-track {
     flex: 1;
     height: 7px;
-    background: #ebebeb;
+    background: var(--bar-bg);
     border-radius: 10px;
     overflow: hidden;
 }
@@ -230,15 +278,15 @@
 }
 
 .stat-bar-fill.blue {
-    background: #3b82f6;
+    background: var(--bar-blue);
 }
 
 .stat-bar-fill.red {
-    background: #ef4444;
+    background: var(--bar-red);
 }
 
 .stat-bar-fill.green {
-    background: #22c55e;
+    background: var(--bar-green);
 }
 
 .stat-block-value {
@@ -275,8 +323,8 @@
 
 /* ── INFO CARD ──────────────────────────────────────────── */
 .info-card {
-    background: #fff;
-    border: 1px solid #e8e8e8;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
     border-radius: 14px;
     padding: 28px;
     display: flex;
@@ -307,13 +355,13 @@
     font-family: 'DM Sans', sans-serif;
     font-size: 1rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 /* Fighting style description */
 .style-description {
     font-size: 0.92rem;
-    color: #555;
+    color: var(--text-secondary);
     line-height: 1.75;
 }
 
@@ -346,7 +394,7 @@
 
 .equipment-item-cost {
     font-size: 0.875rem;
-    color: #888;
+    color: var(--text-secondary);
     font-weight: 500;
     white-space: nowrap;
 }
@@ -364,13 +412,13 @@
 .equipment-total-label {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 .equipment-total-value {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 /* Best For pills */
@@ -387,19 +435,19 @@
     border-radius: 100px;
     border: 1.5px solid #e0e0e0;
     color: #bbb;
-    background: #fafafa;
+    background: var(--bg-secondary);
 }
 
 .bestfor-pill.active {
-    background: #1a1a1a;
-    color: #fff;
-    border-color: #1a1a1a;
+    background: var(--accent);
+    color: var(--accent-text);
+    border-color: var(--text-primary);
 }
 
 /* History */
 .history-text {
     font-size: 0.92rem;
-    color: #555;
+    color: var(--text-secondary);
     line-height: 1.8;
 }
 
@@ -431,13 +479,13 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #1a1a1a;
+    background: var(--accent);
     flex-shrink: 0;
 }
 
 /* ── SIDEBAR: COMPARE BUTTON ────────────────────────────── */
 .compare-card {
-    background: #1a1a1a;
+    background: var(--accent);
     border-radius: 14px;
     padding: 24px;
     display: flex;
@@ -451,7 +499,7 @@
     font-family: 'DM Sans', sans-serif;
     font-size: 0.95rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--accent-text);
     line-height: 1.4;
 }
 
@@ -466,8 +514,8 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    background: #fff;
-    color: #1a1a1a;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     font-family: 'DM Sans', sans-serif;
     font-size: 0.875rem;
     font-weight: 700;
@@ -485,7 +533,7 @@
 
 /* ── RELATED ARTS ───────────────────────────────────────── */
 .related-section {
-    background: #fafafa;
+    background: var(--bg-secondary);
     border-top: 1px solid #e8e8e8;
     padding: 60px 24px;
 }
@@ -504,7 +552,7 @@
     font-weight: 600;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: #999;
+    color: var(--text-muted);
     margin-bottom: 6px;
 }
 
@@ -512,7 +560,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(1.6rem, 3.5vw, 2.2rem);
     letter-spacing: 0.03em;
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 .related-grid {
@@ -523,8 +571,8 @@
 
 /* Related card */
 .related-card {
-    background: #fff;
-    border: 1px solid #e8e8e8;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
     text-decoration: none;
@@ -583,7 +631,7 @@
 .related-card-name {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 .related-stat-row {
@@ -601,7 +649,7 @@
 .related-stat-label {
     font-size: 0.68rem;
     font-weight: 500;
-    color: #aaa;
+    color: var(--text-muted);
     width: 65px;
     flex-shrink: 0;
 }
@@ -609,7 +657,7 @@
 .related-stat-track {
     flex: 1;
     height: 4px;
-    background: #ebebeb;
+    background: var(--bar-bg);
     border-radius: 10px;
     overflow: hidden;
 }
@@ -622,7 +670,7 @@
 .related-stat-value {
     font-size: 0.68rem;
     font-weight: 600;
-    color: #999;
+    color: var(--text-muted);
     width: 16px;
     text-align: right;
 }
@@ -646,7 +694,7 @@
 .not-found h2 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2rem;
-    color: #1a1a1a;
+    color: var(--text-primary);
     letter-spacing: 0.04em;
 }
 
@@ -660,8 +708,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: #1a1a1a;
-    color: #fff;
+    background: var(--accent);
+    color: var(--accent-text);
     font-family: 'DM Sans', sans-serif;
     font-size: 0.875rem;
     font-weight: 600;

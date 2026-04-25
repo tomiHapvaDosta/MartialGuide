@@ -26,16 +26,18 @@
 
 const LAYOUT_STYLES = `
   /* ── Reset & base ─────────────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+*, *::before, *::after {
+    box-sizing: border-box; margin: 0; padding: 0;
+    transition: background-color 350ms ease, color 350ms ease, border-color 350ms ease;
+  }
   :root {
-    --color-bg:         #ffffff;
-    --color-surface:    #f4f4f4;
-    --color-border:     #e8e8e8;
-    --color-text:       #1a1a1a;
-    --color-text-muted: #666666;
-    --color-accent:     #1a1a1a;   /* dark charcoal */
-    --color-accent-inv: #ffffff;
+    --color-bg:         var(--bg-primary,   #ffffff);
+    --color-surface:    var(--bg-secondary, #f4f4f4);
+    --color-border:     var(--border-color, #e8e8e8);
+    --color-text:       var(--text-primary, #1a1a1a);
+    --color-text-muted: var(--text-muted,   #666666);
+    --color-accent:     var(--accent,       #1a1a1a);
+    --color-accent-inv: var(--accent-text,  #ffffff);
     --font-main: 'DM Sans', system-ui, sans-serif;
     --font-display: 'Bebas Neue', 'DM Sans', sans-serif;
     --nav-height: 64px;
@@ -560,3 +562,86 @@ function injectFooter(containerEl) {
 
   containerEl.appendChild(footer);
 }
+/* ─────────────────────────────────────────────────────────────
+   DARK MODE — floating toggle button
+   Injected once; safe to call injectNavbar() multiple times.
+───────────────────────────────────────────────────────────── */
+
+(function () {
+  if (document.getElementById('mg-theme-toggle')) return;
+
+  /* ── Inject button styles ── */
+  const style = document.createElement('style');
+  style.textContent = `
+    #mg-theme-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent, #222);
+      color: var(--accent-text, #fff);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      transition: transform 0.2s ease, background 0.35s ease, box-shadow 0.2s ease;
+      outline-offset: 3px;
+    }
+    #mg-theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+    }
+    #mg-theme-toggle svg { pointer-events: none; }
+  `;
+  document.head.appendChild(style);
+
+  /* ── SVG icons ── */
+  const SUN_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1"  x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22"  x2="5.64" y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1"  y1="12" x2="3"  y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
+    <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+  </svg>`;
+
+  const MOON_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>`;
+
+  /* ── Create button ── */
+  const btn = document.createElement('button');
+  btn.id = 'mg-theme-toggle';
+  btn.setAttribute('aria-label', 'Toggle dark mode');
+
+  function isDark() {
+    return document.documentElement.classList.contains('dark');
+  }
+
+  function updateIcon() {
+    btn.innerHTML = isDark() ? SUN_ICON : MOON_ICON;
+    btn.setAttribute('aria-label', isDark() ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  btn.addEventListener('click', () => {
+    const dark = isDark();
+    document.documentElement.classList.toggle('dark', !dark);
+    localStorage.setItem('theme', dark ? 'light' : 'dark');
+    updateIcon();
+    /* Notify chart/D3 pages if they're listening */
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { dark: !dark } }));
+  });
+
+  updateIcon();
+  document.body.appendChild(btn);
+})();

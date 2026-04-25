@@ -414,7 +414,8 @@ function renderTree(animate) {
     const { width, height } = getDimensions();
     const radius = Math.min(width, height) / 2 - 80;
 
-    svg.attr('width', width).attr('height', height);
+    svg.attr('width', width).attr('height', height)
+        .style('background', getComputedStyle(document.documentElement).getPropertyValue('--bg-primary').trim() || '#fff');
 
     // Add filter definitions for shadows
     let defs = svg.select('defs');
@@ -640,8 +641,7 @@ function renderTree(animate) {
                 .attr('transform', `rotate(${-angle}) translate(0, -${labelR})`)
                 .attr('text-anchor', 'middle')
                 .attr('dominant-baseline', 'middle')
-                .attr('fill', '#333')
-                .attr('font-family', "'DM Sans', sans-serif")
+                .attr('fill', getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim() || '#333').attr('font-family', "'DM Sans', sans-serif")
                 .attr('font-size', '15px')
                 .attr('font-weight', '700')
                 .text(d.data.name);
@@ -785,6 +785,12 @@ window.addEventListener('resize', () => {
 /* ════════════════════════════════════════════════════════════
    BOOT
 ════════════════════════════════════════════════════════════ */
+/* ── Theme-aware D3 re-render ────────────────────────────── */
+window.addEventListener('themechange', () => {
+    renderTree(false);
+});
+
+/* ── BOOT ─────────────────────────────────────────────────── */
 renderFilterPills();
 renderTree(true);
 syncURL();

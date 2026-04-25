@@ -9,6 +9,14 @@
         content="Compare 10 martial arts by difficulty, equipment cost, injury risk and more. Find the perfect discipline for your goals." />
 
     <link rel="stylesheet" href="../css/index.css">
+
+    <script>
+        (function () {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
 </head>
 
 <body>

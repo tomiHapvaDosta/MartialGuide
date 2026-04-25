@@ -230,14 +230,13 @@ function createChart() {
                     ticks: {
                         stepSize: 2,
                         font: { family: "'DM Sans', sans-serif", size: 10 },
-                        color: '#bbb',
-                        backdropColor: 'transparent',
+                        color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim() || '#bbb', backdropColor: 'transparent',
                     },
                     grid: { color: 'rgba(0,0,0,0.06)' },
                     angleLines: { color: 'rgba(0,0,0,0.08)' },
                     pointLabels: {
                         font: { family: "'DM Sans', sans-serif", size: 12, weight: '600' },
-                        color: '#555',
+                        color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim() || '#555',
                     },
                 },
             },
@@ -341,5 +340,29 @@ function hexToRgba(hex, alpha) {
 /* ════════════════════════════════════════════════════════
    BOOT
 ════════════════════════════════════════════════════════ */
+/* ── Theme-aware chart colors ────────────────────────────── */
+function getThemeColors() {
+    const s = getComputedStyle(document.documentElement);
+    return {
+        textSecondary: s.getPropertyValue('--text-secondary').trim() || '#666',
+        borderColor: s.getPropertyValue('--border-color').trim() || '#e0e0e0',
+        bgPrimary: s.getPropertyValue('--bg-primary').trim() || '#ffffff',
+    };
+}
+
+function applyThemeToChart() {
+    if (!chart) return;
+    const tc = getThemeColors();
+    chart.options.scales.r.ticks.color = tc.textSecondary;
+    chart.options.scales.r.grid.color = tc.borderColor;
+    chart.options.scales.r.angleLines.color = tc.borderColor;
+    chart.options.scales.r.pointLabels.color = tc.textSecondary;
+    chart.canvas.parentNode.style.background = tc.bgPrimary;
+    chart.update('none');
+}
+
+window.addEventListener('themechange', applyThemeToChart);
+
+/* ── BOOT ─────────────────────────────────────────────────── */
 updateChart();
 syncURL();

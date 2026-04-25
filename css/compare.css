@@ -1,3 +1,51 @@
+/* ── THEME VARIABLES ─────────────────────────────────────── */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9f9f9;
+    --bg-tertiary: #f0f0f0;
+    --border-color: #e0e0e0;
+    --text-primary: #222222;
+    --text-secondary: #666666;
+    --text-muted: #aaaaaa;
+    --accent: #222222;
+    --accent-text: #ffffff;
+    --navbar-bg: #ffffff;
+    --navbar-border: #e0e0e0;
+    --footer-bg: #f5f5f5;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --bar-bg: #e0e0e0;
+    --bar-blue: #3b82f6;
+    --bar-red: #ef4444;
+    --bar-green: #22c55e;
+}
+
+html.dark {
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #242424;
+    --border-color: #2e2e2e;
+    --text-primary: #f0f0f0;
+    --text-secondary: #aaaaaa;
+    --text-muted: #666666;
+    --accent: #f0f0f0;
+    --accent-text: #0f0f0f;
+    --navbar-bg: #0f0f0f;
+    --navbar-border: #2e2e2e;
+    --footer-bg: #0f0f0f;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --bar-bg: #2e2e2e;
+    --bar-blue: #60a5fa;
+    --bar-red: #f87171;
+    --bar-green: #4ade80;
+}
+
+/* Global transition for theme switching */
+*,
+*::before,
+*::after {
+    transition: background-color 350ms ease, color 350ms ease, border-color 350ms ease;
+}
+
 *::before,
 *::after {
     box-sizing: border-box;
@@ -7,8 +55,8 @@
 
 /* ── PAGE HEADER ───────────────────────────────────────── */
 .page-header {
-    background: #fff;
-    border-bottom: 1px solid #e8e8e8;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
     padding: 52px 24px 44px;
 }
 
@@ -22,7 +70,7 @@
     font-weight: 600;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: #999;
+    color: var(--text-muted);
     margin-bottom: 10px;
 }
 
@@ -30,7 +78,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.4rem, 6vw, 4rem);
     letter-spacing: 0.03em;
-    color: #1a1a1a;
+    color: var(--text-primary);
     line-height: 1;
     margin-bottom: 12px;
 }
@@ -44,8 +92,8 @@
 
 /* ── SELECTOR PANEL ────────────────────────────────────── */
 .selector-panel {
-    background: #fafafa;
-    border-bottom: 1px solid #e8e8e8;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
     padding: 28px 24px;
 }
 
@@ -71,7 +119,7 @@
     font-weight: 600;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: #999;
+    color: var(--text-muted);
 }
 
 .art-select {
@@ -80,7 +128,7 @@
     font-family: 'DM Sans', sans-serif;
     font-size: 0.95rem;
     font-weight: 500;
-    color: #1a1a1a;
+    color: var(--text-primary);
     background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center;
     border: 1.5px solid #ddd;
     border-radius: 9px;
@@ -92,12 +140,12 @@
 }
 
 .art-select:focus {
-    border-color: #1a1a1a;
+    border-color: var(--text-primary);
     box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.07);
 }
 
 .art-select.selected {
-    border-color: #1a1a1a;
+    border-color: var(--text-primary);
 }
 
 .vs-divider {
@@ -117,7 +165,7 @@
     font-size: 0.875rem;
     font-weight: 600;
     color: #666;
-    background: #fff;
+    background: var(--bg-primary);
     border: 1.5px solid #ddd;
     border-radius: 9px;
     padding: 0 18px;
@@ -130,8 +178,8 @@
 }
 
 .btn-reset:hover {
-    border-color: #1a1a1a;
-    color: #1a1a1a;
+    border-color: var(--text-primary);
+    color: var(--text-primary);
 }
 
 /* ── PROMPT STATE (before both selected) ───────────────── */
@@ -155,12 +203,12 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.8rem;
     letter-spacing: 0.04em;
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 .prompt-state p {
     font-size: 0.95rem;
-    color: #999;
+    color: var(--text-muted);
     max-width: 340px;
     line-height: 1.6;
 }
@@ -184,18 +232,18 @@
 
 .compare-top-bar p {
     font-size: 0.85rem;
-    color: #999;
+    color: var(--text-muted);
 }
 
 .compare-top-bar strong {
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 /* ── Table shell ── */
 .compare-table {
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid #e8e8e8;
+    border: 1px solid var(--border-color);
     border-radius: 14px;
     overflow: hidden;
     /* border-radius on table needs this wrapper trick */
@@ -210,7 +258,7 @@
 
 /* ── Header row: art names ── */
 .compare-table thead tr {
-    background: #1a1a1a;
+    background: var(--accent);
 }
 
 .col-label-th {
@@ -244,7 +292,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.5rem;
     letter-spacing: 0.04em;
-    color: #fff;
+    color: var(--accent-text);
     line-height: 1;
 }
 
@@ -265,11 +313,11 @@
 }
 
 .compare-table tbody tr:nth-child(even) {
-    background: #fafafa;
+    background: var(--bg-secondary);
 }
 
 .compare-table tbody tr:nth-child(odd) {
-    background: #fff;
+    background: var(--bg-primary);
 }
 
 /* Row label cell */
@@ -279,7 +327,7 @@
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: #aaa;
+    color: var(--text-muted);
     vertical-align: top;
     white-space: nowrap;
     width: 160px;
@@ -368,7 +416,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.6rem;
     letter-spacing: 0.04em;
-    color: #1a1a1a;
+    color: var(--text-primary);
     line-height: 1;
 }
 
@@ -376,7 +424,7 @@
     width: 100%;
     max-width: 180px;
     height: 6px;
-    background: #ebebeb;
+    background: var(--bar-bg);
     border-radius: 10px;
     overflow: hidden;
 }
@@ -387,15 +435,15 @@
 }
 
 .fill-blue {
-    background: #3b82f6;
+    background: var(--bar-blue);
 }
 
 .fill-red {
-    background: #ef4444;
+    background: var(--bar-red);
 }
 
 .fill-green {
-    background: #22c55e;
+    background: var(--bar-green);
 }
 
 /* Equipment list */
@@ -413,7 +461,7 @@
     align-items: baseline;
     gap: 10px;
     font-size: 0.82rem;
-    color: #555;
+    color: var(--text-secondary);
     padding-bottom: 5px;
     border-bottom: 1px solid #f2f2f2;
 }
@@ -428,7 +476,7 @@
 }
 
 .equip-item-cost {
-    color: #999;
+    color: var(--text-muted);
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -442,7 +490,7 @@
     border-radius: 6px;
     font-size: 0.82rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 /* Best For pills */
@@ -460,13 +508,13 @@
     border-radius: 100px;
     border: 1.5px solid #e0e0e0;
     color: #bbb;
-    background: #fafafa;
+    background: var(--bg-secondary);
 }
 
 .bestfor-pill.active {
-    background: #1a1a1a;
-    color: #fff;
-    border-color: #1a1a1a;
+    background: var(--accent);
+    color: var(--accent-text);
+    border-color: var(--text-primary);
 }
 
 /* Practitioners list */
@@ -539,15 +587,15 @@
 
 /* ── Mobile stacked cards ── */
 .mobile-art-block {
-    background: #fff;
-    border: 1px solid #e8e8e8;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
     border-radius: 14px;
     overflow: hidden;
     margin-bottom: 20px;
 }
 
 .mobile-art-header {
-    background: #1a1a1a;
+    background: var(--accent);
     padding: 18px 20px;
     display: flex;
     align-items: center;
@@ -571,7 +619,7 @@
 .mobile-art-name {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.5rem;
-    color: #fff;
+    color: var(--accent-text);
     letter-spacing: 0.04em;
     line-height: 1;
 }
@@ -613,7 +661,7 @@
 .mobile-stat-value {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.4rem;
-    color: #1a1a1a;
+    color: var(--text-primary);
     width: 36px;
     flex-shrink: 0;
 }
@@ -621,7 +669,7 @@
 .mobile-stat-track {
     flex: 1;
     height: 6px;
-    background: #ebebeb;
+    background: var(--bar-bg);
     border-radius: 10px;
     overflow: hidden;
 }
