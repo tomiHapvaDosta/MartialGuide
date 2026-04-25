@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Roadmap — MartialGuide</title>
+    <meta name="description"
+        content="See your personalized beginner-to-master journey for any martial art, tailored to your schedule and effort level." />
+
+    <!-- Flash prevention (dark mode) -->
+    <script>
+        (function () { if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark'); })();
+    </script>
+
+    <link rel="stylesheet" href="../css/roadmap.css">
+
+
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <div class="page-header-inner">
+            <p class="page-header-label">Journey</p>
+            <h1>Your Roadmap</h1>
+            <p>See what the full journey looks like — personalised to your schedule and effort.</p>
+        </div>
+    </header>
+
+    <div class="roadmap-page">
+
+        <!-- ── SECTION 1: ART SELECTOR ─────────────────────────── -->
+        <div class="card" id="art-selector-section">
+            <p class="card-title">Choose a Martial Art</p>
+            <div class="art-select-wrap">
+                <label class="art-select-label" for="art-select">Which art are you training (or considering)?</label>
+                <select id="art-select" class="art-select" aria-label="Select a martial art">
+                    <option value="">Select a martial art…</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ── SECTION 2: MINI QUIZ ─────────────────────────────── -->
+        <div class="card" id="quiz-section" style="display:none;">
+            <p class="card-title">Personalise Your Roadmap</p>
+            <div class="quiz-grid">
+
+                <div class="quiz-q">
+                    <span class="quiz-q-label">How many hours per week can you train?</span>
+                    <div class="quiz-val-row">
+                        <span class="quiz-big-val" id="hours-val">8</span>
+                        <span class="quiz-val-unit">hrs / week</span>
+                    </div>
+                    <div class="quiz-live-label" id="hours-label"></div>
+                    <input type="range" id="hours-slider" min="1" max="20" step="1" value="8"
+                        aria-label="Hours per week" />
+                    <div class="range-endpoints"><span>1 hr</span><span>20 hrs</span></div>
+                </div>
+
+                <div class="quiz-q">
+                    <span class="quiz-q-label">How much effort will you put in per session?</span>
+                    <div class="quiz-val-row">
+                        <span class="quiz-big-val" id="effort-val">7</span>
+                        <span class="quiz-val-unit">/ 10</span>
+                    </div>
+                    <div class="quiz-live-label" id="effort-label"></div>
+                    <input type="range" id="effort-slider" min="1" max="10" step="1" value="7"
+                        aria-label="Effort per session" />
+                    <div class="range-endpoints"><span>Going through motions</span><span>100% every session</span></div>
+                </div>
+
+            </div>
+
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+                <button class="btn-generate" id="btn-generate" aria-label="Generate personalised roadmap">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                    </svg>
+                    Generate My Roadmap
+                </button>
+                <div class="pace-badge" id="pace-badge" style="display:none;" role="status">
+                    <strong id="pace-label"></strong>
+                    <span id="pace-desc"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── TIMELINE ──────────────────────────────────────────── -->
+        <div class="timeline-wrap" id="timeline-wrap" aria-live="polite">
+            <div class="card" style="padding:0;overflow:hidden;">
+                <div id="timeline-container"></div>
+            </div>
+        </div>
+
+        <!-- ── SUMMARY STATS ─────────────────────────────────────── -->
+        <div id="summary-wrap" style="display:none;">
+            <div class="summary-stats">
+                <div class="summary-stat">
+                    <span class="summary-stat-label">Time to Mastery</span>
+                    <span class="summary-stat-value" id="stat-time"></span>
+                    <span class="summary-stat-sub">at your pace</span>
+                </div>
+                <div class="summary-stat">
+                    <span class="summary-stat-label">Your Pace</span>
+                    <span class="summary-stat-value" id="stat-pace"></span>
+                    <span class="summary-stat-sub" id="stat-pace-sub"></span>
+                </div>
+                <div class="summary-stat">
+                    <span class="summary-stat-label">Total Hours Invested</span>
+                    <span class="summary-stat-value" id="stat-hours"></span>
+                    <span class="summary-stat-sub">estimated to mastery</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DIRECTION TOGGLE BUTTON -->
+    <button id="direction-toggle" aria-label="Toggle timeline direction">
+        <svg id="dir-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="17 8 21 12 17 16" />
+            <polyline points="7 8 3 12 7 16" />
+            <line x1="21" y1="12" x2="3" y2="12" />
+        </svg>
+    </button>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/roadmap.js"></script>
+
+</body>
+
+</html>

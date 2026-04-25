@@ -391,6 +391,7 @@ function injectNavbar(containerEl) {
     { href: 'compare.html', label: 'Compare' },
     { href: 'chart.html', label: 'Chart' },
     { href: 'tree.html', label: 'Tree' },
+    { href: 'roadmap.html', label: 'Roadmap' },
     { href: 'quiz.html', label: 'Quiz' },
   ];
 
@@ -529,6 +530,7 @@ function injectFooter(containerEl) {
     { href: 'compare.html', label: 'Compare' },
     { href: 'chart.html', label: 'Chart' },
     { href: 'tree.html', label: 'Tree' },
+    { href: 'roadmap.html', label: 'Roadmap' },
     { href: 'quiz.html', label: 'Quiz' },
   ];
 

@@ -270,6 +270,39 @@ function renderArt(art) {
               </ul>
             `, 240)}
 
+            <!-- ROADMAP PREVIEW -->
+            ${(function () {
+            const stages = [
+                { name: 'Complete Beginner', color: '#8BC34A' },
+                { name: 'Early Skills', color: '#4CAF50' },
+                { name: 'Intermediate', color: '#FF9800' },
+                { name: 'Advanced', color: '#F44336' },
+                { name: 'Master', color: '#9C27B0' },
+            ];
+            const stepsHTML = stages.map((s, i) => `
+                <div style="display:flex;align-items:center;flex-shrink:0;">
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:5px;min-width:80px;padding:0 4px;">
+                    <div style="width:26px;height:26px;border-radius:50%;background:${s.color};display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.72rem;font-weight:700;font-family:'DM Sans',sans-serif;">${i + 1}</div>
+                    <span style="font-size:0.68rem;font-weight:600;color:var(--text-primary,#222);text-align:center;line-height:1.25;">${s.name}</span>
+                  </div>
+                  ${i < stages.length - 1 ? '<div style="flex:1;min-width:16px;height:2px;background:var(--border-color,#e0e0e0);margin-bottom:18px;"></div>' : ''}
+                </div>`).join('');
+            return `
+              <article class="info-card reveal" style="transition-delay:300ms;">
+                <div class="info-card-header">
+                  <div class="info-card-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  </div>
+                  <h2>Your Journey in ${art.name}</h2>
+                </div>
+                <div style="overflow-x:auto;padding:4px 0 10px;">
+                  <div style="display:flex;align-items:center;min-width:max-content;">${stepsHTML}</div>
+                </div>
+                <a href="roadmap.html?id=${art.id}" style="display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:0.875rem;font-weight:600;color:var(--text-primary,#1a1a1a);background:var(--bg-tertiary,#f0f0f0);border:1.5px solid var(--border-color,#e0e0e0);border-radius:8px;padding:10px 18px;text-decoration:none;width:fit-content;margin-top:4px;">
+                  See your personalized roadmap →
+                </a>
+              </article>`;
+        })()}
             </div>
 
             <!-- SIDEBAR -->
